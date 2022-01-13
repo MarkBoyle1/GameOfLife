@@ -25,5 +25,62 @@ namespace GameOfLife
 
             return cells;
         }
+
+        public List<CellPosition> CalculateNeighbours(CellPosition position, int width, int height)
+        {
+            int left = position.Number - 1;
+            int right = position.Number + 1;
+            int bottom = position.Number + width;
+            int bottomRight = position.Number + width + 1;
+            int bottomLeft = position.Number + width - 1;
+            int top = position.Number - width;
+            int topRight = position.Number - width + 1;
+            int topLeft = position.Number - width - 1;
+            
+            //rightSide
+            if (position.Number % width == 0)
+            {
+                right -= width;
+                bottomRight -= width;
+                topRight -= width;
+            }
+
+            //leftSide
+            if (position.Number % width == 1)
+            {
+                left += width;
+                bottomLeft += width;
+                topLeft += width;
+            }
+
+            //top row
+            if (position.Number < width)
+            {
+                top += width * height;
+                topLeft += width * height;
+                topRight += width * height;
+            }
+
+            //bottom row
+            if (position.Number > (width * height) - width)
+            {
+                bottom -= width * height;
+                bottomLeft -= width * height;
+                bottomRight -= width * height;
+            }
+            
+            List<CellPosition> neighbours = new List<CellPosition>();
+            
+            neighbours.Add(new CellPosition(left));
+            neighbours.Add(new CellPosition(right));
+            neighbours.Add(new CellPosition(bottom));
+            neighbours.Add(new CellPosition(bottomLeft));
+            neighbours.Add(new CellPosition(bottomRight));
+            neighbours.Add(new CellPosition(top));
+            neighbours.Add(new CellPosition(topLeft));
+            neighbours.Add(new CellPosition(topRight));
+
+            return neighbours;
+        }
     }
 }
