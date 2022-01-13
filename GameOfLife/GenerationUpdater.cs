@@ -10,7 +10,7 @@ namespace GameOfLife
             List<Cell> currentLivingCells = GetLivingCells(grid);
             
             List<CellPosition> cellPositions = grid.Cells
-                .Where(cell => GetNumberOfRequiredNeighbours(cell).Contains(GetNumberofLivingNeighbours(cell, currentLivingCells)))
+                .Where(cell => GetNumberOfRequiredNeighbours(cell).Contains(GetNumberOfLivingNeighbours(cell, currentLivingCells)))
                 .Select(cell => new CellPosition(cell.Position))
                 .ToList();
             
@@ -19,45 +19,30 @@ namespace GameOfLife
         
         public List<Cell> GetLivingCells(Grid grid)
         {
-            List<Cell> livingCells = new List<Cell>();
-
-            foreach (var cell in grid.Cells)
-            {
-                if (cell.IsAlive)
-                {
-                    livingCells.Add(cell);
-                }
-            }
-
+            List<Cell> livingCells = grid.Cells.Where(cell => cell.IsAlive).ToList();
+            
             return livingCells;
         }
 
-        public int GetNumberofLivingNeighbours(Cell cell, List<Cell> livingCells)
+        public int GetNumberOfLivingNeighbours(Cell cell, List<Cell> livingCells)
         {
-            int numberOfLivingNeighbours = 0;
             List<int> livingCellPositions = livingCells.Select(x => x.Position).ToList();
 
-            foreach (var neighbour in cell.Neighbours)
-            {
-                if (livingCellPositions.Contains(neighbour.Number))
-                {
-                    numberOfLivingNeighbours++;
-                }
-            }
+            int numberOfLivingNeighbours = cell.Neighbours.Count(cellPosition => livingCellPositions.Contains(cellPosition.Number));
 
             return numberOfLivingNeighbours;
         }
 
         private List<int> GetNumberOfRequiredNeighbours(Cell cell)
         {
-            List<int> requiredNeighbours = new List<int>() {3};
+            List<int> requiredNumberOfNeighbours = new List<int>() {3};
 
             if (cell.IsAlive)
             {
-                requiredNeighbours.Add(2);
+                requiredNumberOfNeighbours.Add(2);
             }
 
-            return requiredNeighbours;
+            return requiredNumberOfNeighbours;
         }
     }
 }

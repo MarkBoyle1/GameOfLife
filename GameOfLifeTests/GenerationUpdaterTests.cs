@@ -66,7 +66,7 @@ namespace GameOfLifeTests
             Cell targetCell = grid.Cells.Find(cell => cell.Position == 8);
             List<Cell> livingCells = _generationUpdater.GetLivingCells(grid);
 
-            int numberOfLivingNeighbours = _generationUpdater.GetNumberofLivingNeighbours(targetCell, livingCells);
+            int numberOfLivingNeighbours = _generationUpdater.GetNumberOfLivingNeighbours(targetCell, livingCells);
 
             Assert.Equal(2, numberOfLivingNeighbours);
            
