@@ -6,20 +6,21 @@ namespace GameOfLife
     {
         public Grid CreateGrid(int width, int height, List<CellPosition> livingCells)
         {
-            int totalNumberOfCells = width * height;
-            List<Cell> cells = CreateCells(totalNumberOfCells, livingCells);
+            List<Cell> cells = CreateCells(width, height, livingCells);
             return new Grid(width, height, cells);
         }
 
-        private List<Cell> CreateCells(int numberOfCells, List<CellPosition> livingCells)
+        private List<Cell> CreateCells(int width, int height, List<CellPosition> livingCells)
         {
+            int numberOfCells = width * height;
             List<Cell> cells = new List<Cell>();
             
-            for (int i = 1; i <= numberOfCells; i++)
+            for (int position = 1; position <= numberOfCells; position++)
             {
-                bool isAlive = livingCells.Exists(x => x.Number == i);
-                
-                Cell newCell = new Cell(i, isAlive);
+                bool isAlive = livingCells.Exists(cellPosition => cellPosition.Number == position);
+                List<CellPosition> neighbours = CalculateNeighbours(new CellPosition(position), width, height);
+
+                Cell newCell = new Cell(position, isAlive, neighbours);
                 cells.Add(newCell);
             }
 
