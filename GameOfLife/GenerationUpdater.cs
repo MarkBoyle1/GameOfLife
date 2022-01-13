@@ -7,7 +7,13 @@ namespace GameOfLife
     {
         public GenerationInfo GetNextGeneration(Grid grid)
         {
-            List<CellPosition> cellPositions = new List<CellPosition>();
+            List<Cell> currentLivingCells = GetLivingCells(grid);
+            
+            List<CellPosition> cellPositions = grid.Cells
+                .Where(cell => GetNumberOfRequiredNeighbours(cell).Contains(GetNumberofLivingNeighbours(cell, currentLivingCells)))
+                .Select(cell => new CellPosition(cell.Position))
+                .ToList();
+            
             return new GenerationInfo(grid.Width, grid.Height, cellPositions);
         }
         
@@ -40,6 +46,18 @@ namespace GameOfLife
             }
 
             return numberOfLivingNeighbours;
+        }
+
+        private List<int> GetNumberOfRequiredNeighbours(Cell cell)
+        {
+            List<int> requiredNeighbours = new List<int>() {3};
+
+            if (cell.IsAlive)
+            {
+                requiredNeighbours.Add(2);
+            }
+
+            return requiredNeighbours;
         }
     }
 }

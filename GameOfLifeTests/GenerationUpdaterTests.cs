@@ -28,6 +28,8 @@ namespace GameOfLifeTests
             Grid grid = _gridBuilder.CreateGrid(5, 5, currentLivingCells);
 
             GenerationInfo nextGeneration = _generationUpdater.GetNextGeneration(grid);
+
+            Assert.Contains(nextGeneration.LivingCells, cellPosition => cellPosition.Number == 8);
         }
         
         [Fact]
