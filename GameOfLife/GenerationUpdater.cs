@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GameOfLife
 {
@@ -23,6 +24,22 @@ namespace GameOfLife
             }
 
             return livingCells;
+        }
+
+        public int GetNumberofLivingNeighbours(Cell cell, List<Cell> livingCells)
+        {
+            int numberOfLivingNeighbours = 0;
+            List<int> livingCellPositions = livingCells.Select(x => x.Position).ToList();
+
+            foreach (var neighbour in cell.Neighbours)
+            {
+                if (livingCellPositions.Contains(neighbour.Number))
+                {
+                    numberOfLivingNeighbours++;
+                }
+            }
+
+            return numberOfLivingNeighbours;
         }
     }
 }

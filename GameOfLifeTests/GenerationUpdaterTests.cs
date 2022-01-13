@@ -48,5 +48,26 @@ namespace GameOfLifeTests
             Assert.Contains(livingCells, cell => cell.Position == 8);
             Assert.Contains(livingCells, cell => cell.Position == 9);
         }
+        
+        [Fact]
+        public void given_PositionEqualsEight_and_LivingCellsIncludeSevenEightNine_when_GetNumberOfLivingNeighbours_then_return_Two()
+        {
+            List<CellPosition> currentLivingCells = new List<CellPosition>()
+            {
+                new CellPosition(7),
+                new CellPosition(8),
+                new CellPosition(9)
+            };
+
+            Grid grid = _gridBuilder.CreateGrid(5, 5, currentLivingCells);
+
+            Cell targetCell = grid.Cells.Find(cell => cell.Position == 8);
+            List<Cell> livingCells = _generationUpdater.GetLivingCells(grid);
+
+            int numberOfLivingNeighbours = _generationUpdater.GetNumberofLivingNeighbours(targetCell, livingCells);
+
+            Assert.Equal(2, numberOfLivingNeighbours);
+           
+        }
     }
 }
