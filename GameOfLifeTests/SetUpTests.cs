@@ -67,5 +67,56 @@ namespace GameOfLifeTests
             
             Assert.Equal(6, activeCell);
         }
+
+        [Fact]
+        public void
+            given_ActiveCellEqualsOne_and_InputEqualsSelectDeselect_when_GetPositionsOfLivingCells_then_return_ListContainingOne()
+        {
+            _input = new TestInput(new List<string>()
+            {
+                Constants.SelectDeselect,
+                Constants.FinishedSelecting
+            });
+            _seedGenerator = new ManualSelection(_input);
+
+            List<CellPosition> livingCells = _seedGenerator.GetPositionsOfLivingCells(5);
+            
+            Assert.Contains(livingCells, cellPosition => cellPosition.Number == 1);
+        }
+        
+        [Fact]
+        public void
+            given_ActiveCellMovesTwoPlacesToTheRightThenSelectsIt_when_GetPositionsOfLivingCells_then_return_ListContainingThree()
+        {
+            _input = new TestInput(new List<string>()
+            {
+                Constants.Right, 
+                Constants.Right, 
+                Constants.SelectDeselect, 
+                Constants.FinishedSelecting
+            });
+            _seedGenerator = new ManualSelection(_input);
+
+            List<CellPosition> livingCells = _seedGenerator.GetPositionsOfLivingCells(5);
+            
+            Assert.Contains(livingCells, cellPosition => cellPosition.Number == 3);
+        }
+        
+        [Fact]
+        public void
+            given_ActiveCellIsDeselected_when_GetPositionsOfLivingCells_then_return_EmptyList()
+        {
+            _input = new TestInput(new List<string>()
+            {
+                Constants.SelectDeselect,
+                Constants.SelectDeselect, 
+                Constants.FinishedSelecting
+            });
+            _seedGenerator = new ManualSelection(_input);
+
+            List<CellPosition> livingCells = _seedGenerator.GetPositionsOfLivingCells(5);
+            
+            Assert.Empty(livingCells);
+        }
     }
 }
