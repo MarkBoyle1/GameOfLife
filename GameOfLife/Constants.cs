@@ -8,5 +8,10 @@ namespace GameOfLife
         public const string Down = "s";
         public const string SelectDeselect = "e";
         public const string FinishedSelecting = "q";
+
+        public const int TimeBetweenGenerationsInMilliseconds = 100;
+
+        public const string LivingCell = "\u25fc";  //medium square
+        public const string DeadCell = " ";
     }
 }
