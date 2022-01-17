@@ -1,4 +1,4 @@
-﻿using System;
+﻿using GameOfLife.Input;
 
 namespace GameOfLife
 {
@@ -6,7 +6,12 @@ namespace GameOfLife
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            IUserInput input = new ConsoleInput();
+            IOutput output = new ConsoleOutput();
+
+            Engine engine = new Engine(input, output);
+            
+            engine.RunProgram();
         }
     }
 }
