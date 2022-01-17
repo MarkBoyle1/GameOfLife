@@ -13,5 +13,9 @@ namespace GameOfLife
 
         public const string LivingCell = "\u25fc";  //medium square
         public const string DeadCell = " ";
+        public const string SelectedActiveCell = "\u25a3"; //square within a square
+        public const string DeselectedActiveCell = "\u25a2"; //empty square
+        public const string SelectedCell = "\u25fc"; //full square
+        public const string DeselectedCell = " ";
     }
 }

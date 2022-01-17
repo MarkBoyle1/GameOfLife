@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace GameOfLife
@@ -26,6 +27,41 @@ namespace GameOfLife
             }
             
             Thread.Sleep(Constants.TimeBetweenGenerationsInMilliseconds);
+        }
+
+        public void DisplaySelectionGrid(List<int> displayGrid, int activeCell, List<int> selectedCells, int width)
+        {
+            Console.Clear();
+                
+            foreach (var cell in displayGrid)
+            {
+                    
+                if (cell == activeCell && selectedCells.Contains(cell))
+                {
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.Write(Constants.SelectedActiveCell + " ");
+                }
+                else if (cell == activeCell)
+                {
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.Write(Constants.DeselectedActiveCell + " ");
+                }
+                else if (selectedCells.Contains(cell))
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.Write(Constants.SelectedCell + " ");
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write(Constants.DeselectedCell + " ");
+                }
+                    
+                if (cell % width == 0)
+                {
+                    Console.WriteLine();
+                }
+            }
         }
     }
 }
