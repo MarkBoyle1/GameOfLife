@@ -73,6 +73,8 @@ namespace GameOfLife
                 {
                     userIsSelecting = false;
                 }
+                _output.DisplaySelectionGrid(displayGrid, activeCell, selectedCells, width);
+
             }
 
             List<CellPosition> livingCellPositions = new List<CellPosition>();

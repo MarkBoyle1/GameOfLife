@@ -9,12 +9,12 @@ namespace GameOfLife
 
         public static string ChooseSelectionGridAction()
         {
-            return "Up = " + Constants.Up
-                           + "Down = " + Constants.Down
-                           + "Left = " + Constants.Left
-                           + "Right = " + Constants.Right
-                           + "Selected/Deselect = " + Constants.SelectDeselect
-                           + "Finished Selecting = " + Constants.FinishedSelecting
+            return "Up = " + Constants.Up + System.Environment.NewLine
+                           + "Down = " + Constants.Down + System.Environment.NewLine
+                           + "Left = " + Constants.Left + System.Environment.NewLine
+                           + "Right = " + Constants.Right + System.Environment.NewLine
+                           + "Selected/Deselect = " + Constants.SelectDeselect + System.Environment.NewLine
+                           + "Finished Selecting = " + Constants.FinishedSelecting + System.Environment.NewLine
                            + "Please select an action:";
         }
 
