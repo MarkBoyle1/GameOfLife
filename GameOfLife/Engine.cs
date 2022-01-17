@@ -30,7 +30,6 @@ namespace GameOfLife
                 _output.DisplayGrid(grid);
                 currentGeneration = _generationUpdater.GetNextGeneration(grid);
             }
-            
         }
     }
 }
