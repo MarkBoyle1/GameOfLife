@@ -13,14 +13,14 @@ namespace GameOfLifeTests
         public SetUpTests()
         {
             _input = new TestInput(new List<string>());
-            _seedGenerator = new ManualSelection(_input);
+            _seedGenerator = new ManualSelection(_input, new ConsoleOutput());
         }
         
         [Fact]
         public void given_ActiveCellEqualsOne_and_InputEqualsRight_when_MoveActiveCell_then_return_Two()
         {
             _input = new TestInput(new List<string>(){Constants.Right});
-            _seedGenerator = new ManualSelection(_input);
+            _seedGenerator = new ManualSelection(_input, new ConsoleOutput());
             
             int activeCell = 1;
 
@@ -33,7 +33,7 @@ namespace GameOfLifeTests
         public void given_ActiveCellEqualsFour_and_InputEqualsLeft_when_MoveActiveCell_then_return_Three()
         {
             _input = new TestInput(new List<string>(){Constants.Left});
-            _seedGenerator = new ManualSelection(_input);
+            _seedGenerator = new ManualSelection(_input, new ConsoleOutput());
             
             int activeCell = 4;
 
@@ -46,7 +46,7 @@ namespace GameOfLifeTests
         public void given_ActiveCellEqualsFour_and_WidthEqualsFive_and_InputEqualsDown_when_MoveActiveCell_then_return_Nine()
         {
             _input = new TestInput(new List<string>(){Constants.Down});
-            _seedGenerator = new ManualSelection(_input);
+            _seedGenerator = new ManualSelection(_input, new ConsoleOutput());
             
             int activeCell = 4;
 
@@ -59,7 +59,7 @@ namespace GameOfLifeTests
         public void given_ActiveCellEqualsEleven_and_WidthEqualsFive_and_InputEqualsUp_when_MoveActiveCell_then_return_Six()
         {
             _input = new TestInput(new List<string>(){Constants.Up});
-            _seedGenerator = new ManualSelection(_input);
+            _seedGenerator = new ManualSelection(_input, new ConsoleOutput());
             
             int activeCell = 11;
 
@@ -77,9 +77,9 @@ namespace GameOfLifeTests
                 Constants.SelectDeselect,
                 Constants.FinishedSelecting
             });
-            _seedGenerator = new ManualSelection(_input);
+            _seedGenerator = new ManualSelection(_input, new ConsoleOutput());
 
-            List<CellPosition> livingCells = _seedGenerator.GetPositionsOfLivingCells(5);
+            List<CellPosition> livingCells = _seedGenerator.GetPositionsOfLivingCells(5, 5);
             
             Assert.Contains(livingCells, cellPosition => cellPosition.Number == 1);
         }
@@ -95,9 +95,9 @@ namespace GameOfLifeTests
                 Constants.SelectDeselect, 
                 Constants.FinishedSelecting
             });
-            _seedGenerator = new ManualSelection(_input);
+            _seedGenerator = new ManualSelection(_input, new ConsoleOutput());
 
-            List<CellPosition> livingCells = _seedGenerator.GetPositionsOfLivingCells(5);
+            List<CellPosition> livingCells = _seedGenerator.GetPositionsOfLivingCells(5, 5);
             
             Assert.Contains(livingCells, cellPosition => cellPosition.Number == 3);
         }
@@ -112,11 +112,48 @@ namespace GameOfLifeTests
                 Constants.SelectDeselect, 
                 Constants.FinishedSelecting
             });
-            _seedGenerator = new ManualSelection(_input);
+            _seedGenerator = new ManualSelection(_input, new ConsoleOutput());
 
-            List<CellPosition> livingCells = _seedGenerator.GetPositionsOfLivingCells(5);
+            List<CellPosition> livingCells = _seedGenerator.GetPositionsOfLivingCells(5, 5);
             
             Assert.Empty(livingCells);
+        }
+
+        [Fact]
+        public void given_InputEqualsFiveAndSix_when_GetSeedGeneration_then_seedGenerationWidthAndHeightEqualsFiveAndSix()
+        {
+            IUserInput input = new TestInput(new List<string>()
+            {
+                "5",
+                "6",
+                Constants.FinishedSelecting
+            });
+
+            SetUp setUp = new SetUp(input);
+
+            GenerationInfo seedGeneration = setUp.GetSeedGeneration();
+            
+            Assert.Equal(5, seedGeneration.Width);
+            Assert.Equal(6, seedGeneration.Height);
+        }
+        
+        [Fact]
+        public void given_UserSelectsCellNumberTwo_when_GetSeedGeneration_then_seedGenerationLivingCellsContainsTwo()
+        {
+            IUserInput input = new TestInput(new List<string>()
+            {
+                "5",
+                "6",
+                Constants.Right,
+                Constants.SelectDeselect,
+                Constants.FinishedSelecting
+            });
+
+            SetUp setUp = new SetUp(input);
+
+            GenerationInfo seedGeneration = setUp.GetSeedGeneration();
+            
+            Assert.Contains(seedGeneration.LivingCells, position => position.Number == 2);
         }
     }
 }

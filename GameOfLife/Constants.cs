@@ -10,6 +10,7 @@ namespace GameOfLife
         public const string FinishedSelecting = "q";
 
         public const int TimeBetweenGenerationsInMilliseconds = 100;
+        public const int MinimumGridMeasurement = 3;
 
         public const string LivingCell = "\u25fc";  //medium square
         public const string DeadCell = " ";
