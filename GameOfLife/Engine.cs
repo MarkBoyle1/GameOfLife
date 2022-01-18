@@ -22,8 +22,9 @@ namespace GameOfLife
         public void RunProgram()
         {
             GenerationInfo currentGeneration = _setUp.GetSeedGeneration();
-
-            while (true)
+            GameManager gameManager = new GameManager();
+            
+            while (!gameManager.CheckForGameFinish(currentGeneration))
             {
                 Grid grid = _gridBuilder.CreateGrid(currentGeneration.Width, currentGeneration.Height,
                     currentGeneration.LivingCells);

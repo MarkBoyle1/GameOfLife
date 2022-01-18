@@ -11,6 +11,7 @@ namespace GameOfLife
 
         public const int TimeBetweenGenerationsInMilliseconds = 100;
         public const int MinimumGridMeasurement = 3;
+        public const int NumberOfPreviousGenerationsKeptToCheckForInfiniteLoop = 5;
 
         public const string LivingCell = "\u25fc";  //medium square
         public const string DeadCell = " ";
