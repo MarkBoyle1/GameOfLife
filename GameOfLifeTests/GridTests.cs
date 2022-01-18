@@ -18,11 +18,10 @@ namespace GameOfLifeTests
         [Fact]
         public void given_gridWidthEquals5_and_gridHeightEquals5_when_CreateGrid_then_GridCellsCountEquals25()
         {
-            int width = 5;
-            int height = 5;
             List<CellPosition> livingCells = new List<CellPosition>();
-            
-            Grid grid = _gridBuilder.CreateGrid(width, height, livingCells);
+            GenerationInfo generation = new GenerationInfo(5, 5, livingCells);
+
+            Grid grid = _gridBuilder.CreateGrid(generation);
             
             Assert.Equal(25, grid.Cells.Count);
         }
@@ -30,11 +29,10 @@ namespace GameOfLifeTests
         [Fact]
         public void given_LivingCellsListContainsThree_when_CreateGrid_then_GridCellPositionThreeIsAliveEqualsTrue()
         {
-            int width = 5;
-            int height = 5;
             List<CellPosition> livingCells = new List<CellPosition>() {new CellPosition(3)};
+            GenerationInfo generation = new GenerationInfo(5, 5, livingCells);
 
-            Grid grid = _gridBuilder.CreateGrid(width, height, livingCells);
+            Grid grid = _gridBuilder.CreateGrid(generation);
 
             Cell targetCell = grid.Cells.Find(x => x.Position == 3);
             

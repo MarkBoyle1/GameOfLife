@@ -15,23 +15,51 @@ namespace GameOfLife
             _input = input;
             _output = output;
         }
-        public int MoveActiveCell(int activeCell, int width)
+        public int MoveActiveCell(int activeCell, int width, int height)
         {
             string input = _input.GetUserInput();
             
             switch (input)
             {
                 case Constants.Left:
-                    activeCell--;
+                    if (activeCell % width == 1)
+                    {
+                        activeCell += width -1;
+                    }
+                    else
+                    { 
+                        activeCell--;
+                    }
                     break;
                 case Constants.Right:
-                    activeCell++;
+                    if (activeCell % width == 0)
+                    {
+                        activeCell -= width - 1;
+                    }
+                    else
+                    { 
+                        activeCell++;
+                    }
                     break;
                 case Constants.Up:
-                    activeCell = activeCell - width;
+                    if (activeCell <= width)
+                    {
+                        activeCell += width * height - width;
+                    }
+                    else
+                    {
+                        activeCell -= width;
+                    }
                     break;
                 case Constants.Down:
-                    activeCell += width;
+                    if (activeCell > (width * height) - width)
+                    {
+                        activeCell -= width * height - width;
+                    }
+                    else
+                    {
+                        activeCell += width;
+                    }
                     break;
                 case Constants.SelectDeselect:
                     throw new InputIsSelectDeselectException();
@@ -46,7 +74,7 @@ namespace GameOfLife
         {
             _output.DisplayMessage(OutputMessages.SelectLivingCellsForSeedGeneration);
             List<int> displayGrid =  Enumerable.Range(1, width * height).ToList();
-            int activeCell = 1;
+            int activeCell = Constants.StartingCellPositionForManualSelection;
             List<int> selectedCells = new List<int>();
             bool userIsSelecting = true;
             _output.DisplaySelectionGrid(displayGrid, activeCell, selectedCells, width);
@@ -56,7 +84,7 @@ namespace GameOfLife
                 try
                 {
                     _output.DisplayMessage(OutputMessages.ChooseSelectionGridAction());
-                    activeCell = MoveActiveCell(activeCell, width);
+                    activeCell = MoveActiveCell(activeCell, width, height);
                 }
                 catch (InputIsSelectDeselectException)
                 {
@@ -99,7 +127,7 @@ namespace GameOfLife
         {
             string userResponse = _input.GetUserInput();
 
-            int number = 0;
+            int number;
 
             while (!int.TryParse(userResponse, out number))
             {
