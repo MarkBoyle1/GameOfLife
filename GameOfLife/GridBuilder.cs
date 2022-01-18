@@ -59,7 +59,7 @@ namespace GameOfLife
             }
 
             //top row
-            if (position.Number < width)
+            if (position.Number <= width)
             {
                 top += width * height;
                 topLeft += width * height;

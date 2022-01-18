@@ -46,7 +46,7 @@ namespace GameOfLife
         {
             _output.DisplayMessage(OutputMessages.SelectLivingCellsForSeedGeneration);
             List<int> displayGrid =  Enumerable.Range(1, width * height).ToList();
-            int activeCell = 1;
+            int activeCell = Constants.StartingCellPositionForManualSelection;
             List<int> selectedCells = new List<int>();
             bool userIsSelecting = true;
             _output.DisplaySelectionGrid(displayGrid, activeCell, selectedCells, width);
@@ -99,7 +99,7 @@ namespace GameOfLife
         {
             string userResponse = _input.GetUserInput();
 
-            int number = 0;
+            int number;
 
             while (!int.TryParse(userResponse, out number))
             {
