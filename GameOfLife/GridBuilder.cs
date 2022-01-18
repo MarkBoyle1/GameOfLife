@@ -4,14 +4,18 @@ namespace GameOfLife
 {
     public class GridBuilder
     {
-        public Grid CreateGrid(int width, int height, List<CellPosition> livingCells)
+        public Grid CreateGrid(GenerationInfo generation)
         {
-            List<Cell> cells = CreateCells(width, height, livingCells);
-            return new Grid(width, height, cells);
+            List<Cell> cells = CreateCells(generation);
+            return new Grid(generation.Width, generation.Height, cells);
         }
 
-        private List<Cell> CreateCells(int width, int height, List<CellPosition> livingCells)
+        private List<Cell> CreateCells(GenerationInfo generation)
         {
+            int width = generation.Width;
+            int height = generation.Height;
+            List<CellPosition> livingCells = generation.LivingCells;
+            
             int numberOfCells = width * height;
             List<Cell> cells = new List<Cell>();
             

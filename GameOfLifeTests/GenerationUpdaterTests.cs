@@ -25,7 +25,8 @@ namespace GameOfLifeTests
                 new CellPosition(9)
             };
 
-            Grid grid = _gridBuilder.CreateGrid(5, 5, currentLivingCells);
+            GenerationInfo generation = new GenerationInfo(5, 5, currentLivingCells);
+            Grid grid = _gridBuilder.CreateGrid(generation);
 
             GenerationInfo nextGeneration = _generationUpdater.GetNextGeneration(grid);
 
@@ -42,7 +43,9 @@ namespace GameOfLifeTests
                 new CellPosition(9)
             };
 
-            Grid grid = _gridBuilder.CreateGrid(5, 5, currentLivingCells);
+            GenerationInfo generation = new GenerationInfo(5, 5, currentLivingCells);
+
+            Grid grid = _gridBuilder.CreateGrid(generation);
 
             List<Cell> livingCells = _generationUpdater.GetLivingCells(grid);
 
@@ -60,8 +63,10 @@ namespace GameOfLifeTests
                 new CellPosition(8),
                 new CellPosition(9)
             };
+            
+            GenerationInfo generation = new GenerationInfo(5, 5, currentLivingCells);
 
-            Grid grid = _gridBuilder.CreateGrid(5, 5, currentLivingCells);
+            Grid grid = _gridBuilder.CreateGrid(generation);
 
             Cell targetCell = grid.Cells.Find(cell => cell.Position == 8);
             List<Cell> livingCells = _generationUpdater.GetLivingCells(grid);

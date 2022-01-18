@@ -26,8 +26,7 @@ namespace GameOfLife
             
             while (!gameManager.CheckForGameFinish(currentGeneration))
             {
-                Grid grid = _gridBuilder.CreateGrid(currentGeneration.Width, currentGeneration.Height,
-                    currentGeneration.LivingCells);
+                Grid grid = _gridBuilder.CreateGrid(currentGeneration);
                 _output.DisplayGrid(grid);
                 currentGeneration = _generationUpdater.GetNextGeneration(grid);
             }

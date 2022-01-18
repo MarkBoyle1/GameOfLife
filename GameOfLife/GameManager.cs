@@ -13,6 +13,11 @@ namespace GameOfLife
         }
         public bool CheckForGameFinish(GenerationInfo generation)
         {
+            if (generation.LivingCells.Count == 0)
+            {
+                return true;
+            }
+            
             if (_previousGenerations.Count == 0)
             {
                 _previousGenerations.Add(generation);
@@ -38,7 +43,7 @@ namespace GameOfLife
                 _previousGenerations.RemoveAt(0);
             }
             
-            return generation.LivingCells.Count == 0;
+            return false;
         }
 
         private bool CheckForNoChange(GenerationInfo currentGeneration, GenerationInfo previousGeneration)
