@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using GameOfLife;
+using GameOfLife.Input;
 using Xunit;
 
 namespace GameOfLifeTests
@@ -9,7 +10,7 @@ namespace GameOfLifeTests
         [Fact]
         public void given_GenerationHasNoLivingCells_when_CheckForGameFinish_then_return_true()
         {
-            GameManager gameManager = new GameManager();
+            GameManager gameManager = new GameManager(new ConsoleInput(), new ConsoleOutput());
             GenerationInfo generation = new GenerationInfo(5, 5, new List<CellPosition>());
 
             bool gameHasFinished = gameManager.CheckForGameFinish(generation);
@@ -20,7 +21,7 @@ namespace GameOfLifeTests
         [Fact]
         public void given_GenerationHasLivingCells_when_CheckForGameFinish_then_return_false()
         {
-            GameManager gameManager = new GameManager();
+            GameManager gameManager = new GameManager(new ConsoleInput(), new ConsoleOutput());
             GenerationInfo generation = new GenerationInfo(5, 5, new List<CellPosition>()
             {
                 new CellPosition(1)
@@ -34,7 +35,7 @@ namespace GameOfLifeTests
         [Fact]
         public void given_TwoGenerationsInARowAreTheSame_when_CheckForGameFinish_then_return_true()
         {
-            GameManager gameManager = new GameManager();
+            GameManager gameManager = new GameManager(new ConsoleInput(), new ConsoleOutput());
             GenerationInfo generation1 = new GenerationInfo(5, 5, new List<CellPosition>()
             {
                 new CellPosition(1)
@@ -51,7 +52,7 @@ namespace GameOfLifeTests
         [Fact]
         public void given_InfiniteLoopDetectedAfterTwoGenerations_when_CheckForGameFinish_then_return_true()
         {
-            GameManager gameManager = new GameManager();
+            GameManager gameManager = new GameManager(new ConsoleInput(), new ConsoleOutput());
             GenerationInfo generation1 = new GenerationInfo(5, 5, new List<CellPosition>()
             {
                 new CellPosition(1)

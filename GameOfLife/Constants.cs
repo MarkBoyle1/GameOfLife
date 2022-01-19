@@ -9,7 +9,12 @@ namespace GameOfLife
         public const string SelectDeselect = "e";
         public const string FinishedSelecting = "q";
 
-        public const int TimeBetweenGenerationsInMilliseconds = 100;
+        public const string YesResponse = "y";
+        public const string NoResponse = "n";
+
+        public const string JSONSavedSeedsFilePath = "JSONSavedSeeds.json";
+
+        public const int TimeBetweenGenerationsInMilliseconds = 200;
         public const int MinimumGridMeasurement = 3;
         public const int NumberOfPreviousGenerationsKeptToCheckForInfiniteLoop = 5;
         public const int StartingCellPositionForManualSelection = 1;

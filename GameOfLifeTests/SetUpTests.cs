@@ -181,7 +181,7 @@ namespace GameOfLifeTests
                 Constants.FinishedSelecting
             });
 
-            SetUp setUp = new SetUp(input);
+            SetUp setUp = new SetUp(input, new ConsoleOutput(), new List<SavedSeed>());
 
             GenerationInfo seedGeneration = setUp.GetSeedGeneration();
             
@@ -201,7 +201,7 @@ namespace GameOfLifeTests
                 Constants.FinishedSelecting
             });
 
-            SetUp setUp = new SetUp(input);
+            SetUp setUp = new SetUp(input, new ConsoleOutput(), new List<SavedSeed>());
 
             GenerationInfo seedGeneration = setUp.GetSeedGeneration();
             
