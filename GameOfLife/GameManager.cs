@@ -1,24 +1,16 @@
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text.Json;
 using GameOfLife.Input;
 
 namespace GameOfLife
 {
     public class GameManager
     {
-        private IUserInput _input;
-        private IOutput _output;
         private List<GenerationInfo> _previousGenerations;
-        private ISeedSaver _seedSaver;
 
-        public GameManager(IUserInput input, IOutput output)
+        public GameManager()
         {
-            _input = input;
-            _output = output;
             _previousGenerations = new List<GenerationInfo>();
-            _seedSaver = new JSONSeedSaver();
         }
         public bool CheckForGameFinish(GenerationInfo generation)
         {
@@ -57,21 +49,20 @@ namespace GameOfLife
 
         private bool CheckForNoChange(GenerationInfo currentGeneration, GenerationInfo previousGeneration)
         {
-            List<int> currentGenerationLivingCells = ConvertCellPositionsIntoNumbers(currentGeneration.LivingCells);
-
-            List<int> previousGenerationLivingCells = ConvertCellPositionsIntoNumbers(previousGeneration.LivingCells);
+            List<int> currentGenerationLivingCells = ConvertCellPositionsIntoIntegers(currentGeneration.LivingCells);
+            List<int> previousGenerationLivingCells = ConvertCellPositionsIntoIntegers(previousGeneration.LivingCells);
             
             return currentGenerationLivingCells.All(previousGenerationLivingCells.Contains);
         }
 
         private bool CheckForInfiniteLoop(GenerationInfo currentGeneration, List<GenerationInfo> previousGenerations)
         {
-            List<int> currentGenerationLivingCells = ConvertCellPositionsIntoNumbers(currentGeneration.LivingCells);
+            List<int> currentGenerationLivingCells = ConvertCellPositionsIntoIntegers(currentGeneration.LivingCells);
 
             foreach (var previousGeneration in previousGenerations)
             {
                 List<int> previousGenerationLivingCells =
-                    ConvertCellPositionsIntoNumbers(previousGeneration.LivingCells);
+                    ConvertCellPositionsIntoIntegers(previousGeneration.LivingCells);
 
                 if (currentGenerationLivingCells.All(previousGenerationLivingCells.Contains))
                 {
@@ -82,35 +73,11 @@ namespace GameOfLife
             return false;
         }
 
-        private List<int> ConvertCellPositionsIntoNumbers(List<CellPosition> cellPositions)
+        private List<int> ConvertCellPositionsIntoIntegers(List<CellPosition> cellPositions)
         {
             return cellPositions
                 .Select(cell => cell.Number)
                 .ToList();
-        }
-
-        public void SaveSeedIfRequested(GenerationInfo seedGeneration, List<SavedSeed> savedSeeds)
-        {
-            _output.DisplayMessage(OutputMessages.WouldYouLikeToSaveTheSeed);
-            string response = _input.GetUserInput();
-
-            if (response == Constants.YesResponse)
-            {
-                _output.DisplayMessage(OutputMessages.AskForNameOfSavedSeed);
-                string name = _input.GetUserInput();
-
-                SavedSeed newSeed = new SavedSeed(name, seedGeneration);
-                savedSeeds.Add(newSeed);
-            }
-                
-            _seedSaver.SaveSeeds(savedSeeds);
-        }
-        
-        public List<SavedSeed> LoadSavedSeeds()
-        {
-            string jsonString = File.ReadAllText(Constants.JSONSavedSeedsFilePath);
-            List<SavedSeed> seeds = JsonSerializer.Deserialize<List<SavedSeed>>(jsonString);
-            return seeds;
         }
     }
 }

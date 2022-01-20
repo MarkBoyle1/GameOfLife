@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using GameOfLife.Input;
 
 namespace GameOfLife
@@ -7,7 +8,7 @@ namespace GameOfLife
     {
         private IUserInput _input;
         private IOutput _output;
-        private SetUp _setUp;
+        private SeedManager _seedManager;
         private GenerationUpdater _generationUpdater;
         private GridBuilder _gridBuilder;
         private GameManager _gameManager;
@@ -16,28 +17,29 @@ namespace GameOfLife
         {
             _input = input;
             _output = output;
-            _gameManager = new GameManager(_input, _output);
-            _setUp = new SetUp(_input, _output, _gameManager.LoadSavedSeeds());
+            _gameManager = new GameManager();
             _generationUpdater = new GenerationUpdater();
             _gridBuilder = new GridBuilder();
+            _seedManager = new SeedManager(_input, _output);
         }
         
         public void RunProgram()
         {
-            GenerationInfo currentGeneration;
-            
-            GenerationInfo seedGeneration = _setUp.GetSeedGeneration();
+            GenerationInfo nextGeneration;
+
+            GenerationInfo seedGeneration = _seedManager.GetSeedGeneration();
             Grid grid = _gridBuilder.CreateGrid(seedGeneration);
+            _output.DisplayGrid(grid);
 
             do
             {
-                currentGeneration = _generationUpdater.GetNextGeneration(grid);
-                grid = _gridBuilder.CreateGrid(currentGeneration);
+                nextGeneration = _generationUpdater.GetNextGeneration(grid);
+                grid = _gridBuilder.CreateGrid(nextGeneration);
                 _output.DisplayGrid(grid);
             }
-            while (!_gameManager.CheckForGameFinish(currentGeneration)) ;
+            while (!_gameManager.CheckForGameFinish(nextGeneration));
 
-            _gameManager.SaveSeedIfRequested(seedGeneration, _setUp._savedSeeds);
+            _seedManager.SaveSeedIfRequested(seedGeneration);
         }
     }
 }

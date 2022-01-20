@@ -5,15 +5,17 @@ using Xunit;
 
 namespace GameOfLifeTests
 {
-    public class SetUpTests
+    public class SeedManagerTests
     {
         private IUserInput _input;
         private ISeedGenerator _seedGenerator;
+        private string _testFilePath;
 
-        public SetUpTests()
+        public SeedManagerTests()
         {
             _input = new TestInput(new List<string>());
             _seedGenerator = new ManualSelection(_input, new ConsoleOutput());
+            _testFilePath = "../../../../GameOfLife/TestSavedSeedsJsonFile.json";
         }
         
         [Fact]
@@ -176,14 +178,15 @@ namespace GameOfLifeTests
         {
             IUserInput input = new TestInput(new List<string>()
             {
+                Constants.NoResponse,
                 "5",
                 "6",
                 Constants.FinishedSelecting
             });
 
-            SetUp setUp = new SetUp(input, new ConsoleOutput(), new List<SavedSeed>());
+            SeedManager seedManager = new SeedManager(input, new ConsoleOutput(), _testFilePath);
 
-            GenerationInfo seedGeneration = setUp.GetSeedGeneration();
+            GenerationInfo seedGeneration = seedManager.GetSeedGeneration();
             
             Assert.Equal(5, seedGeneration.Width);
             Assert.Equal(6, seedGeneration.Height);
@@ -194,6 +197,7 @@ namespace GameOfLifeTests
         {
             IUserInput input = new TestInput(new List<string>()
             {
+                Constants.NoResponse,
                 "5",
                 "6",
                 Constants.Right,
@@ -201,9 +205,9 @@ namespace GameOfLifeTests
                 Constants.FinishedSelecting
             });
 
-            SetUp setUp = new SetUp(input, new ConsoleOutput(), new List<SavedSeed>());
+            SeedManager seedManager = new SeedManager(input, new ConsoleOutput(), _testFilePath);
 
-            GenerationInfo seedGeneration = setUp.GetSeedGeneration();
+            GenerationInfo seedGeneration = seedManager.GetSeedGeneration();
             
             Assert.Contains(seedGeneration.LivingCells, position => position.Number == 2);
         }
