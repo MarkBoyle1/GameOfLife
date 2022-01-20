@@ -6,7 +6,6 @@ namespace GameOfLife
     {
         public int GetGridWidth();
         public int GetGridHeight();
-        public int MoveActiveCell(int activeCell, int width, int height);
         public List<CellPosition> GetPositionsOfLivingCells(int width, int height);
     }
 }

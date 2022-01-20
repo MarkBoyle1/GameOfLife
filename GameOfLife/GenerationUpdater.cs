@@ -17,14 +17,14 @@ namespace GameOfLife
             return new GenerationInfo(grid.Width, grid.Height, cellPositions);
         }
         
-        public List<Cell> GetLivingCells(Grid grid)
+        private List<Cell> GetLivingCells(Grid grid)
         {
             List<Cell> livingCells = grid.Cells.Where(cell => cell.IsAlive).ToList();
             
             return livingCells;
         }
 
-        public int GetNumberOfLivingNeighbours(Cell cell, List<Cell> livingCells)
+        private int GetNumberOfLivingNeighbours(Cell cell, List<Cell> livingCells)
         {
             List<int> livingCellPositions = livingCells.Select(x => x.Position).ToList();
 

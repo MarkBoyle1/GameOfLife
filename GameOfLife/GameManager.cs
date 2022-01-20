@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using GameOfLife.Input;
 
 namespace GameOfLife
 {
@@ -48,21 +49,20 @@ namespace GameOfLife
 
         private bool CheckForNoChange(GenerationInfo currentGeneration, GenerationInfo previousGeneration)
         {
-            List<int> currentGenerationLivingCells = ConvertCellPositionsIntoNumbers(currentGeneration.LivingCells);
-
-            List<int> previousGenerationLivingCells = ConvertCellPositionsIntoNumbers(previousGeneration.LivingCells);
+            List<int> currentGenerationLivingCells = ConvertCellPositionsIntoIntegers(currentGeneration.LivingCells);
+            List<int> previousGenerationLivingCells = ConvertCellPositionsIntoIntegers(previousGeneration.LivingCells);
             
             return currentGenerationLivingCells.All(previousGenerationLivingCells.Contains);
         }
 
         private bool CheckForInfiniteLoop(GenerationInfo currentGeneration, List<GenerationInfo> previousGenerations)
         {
-            List<int> currentGenerationLivingCells = ConvertCellPositionsIntoNumbers(currentGeneration.LivingCells);
+            List<int> currentGenerationLivingCells = ConvertCellPositionsIntoIntegers(currentGeneration.LivingCells);
 
             foreach (var previousGeneration in previousGenerations)
             {
                 List<int> previousGenerationLivingCells =
-                    ConvertCellPositionsIntoNumbers(previousGeneration.LivingCells);
+                    ConvertCellPositionsIntoIntegers(previousGeneration.LivingCells);
 
                 if (currentGenerationLivingCells.All(previousGenerationLivingCells.Contains))
                 {
@@ -73,7 +73,7 @@ namespace GameOfLife
             return false;
         }
 
-        private List<int> ConvertCellPositionsIntoNumbers(List<CellPosition> cellPositions)
+        private List<int> ConvertCellPositionsIntoIntegers(List<CellPosition> cellPositions)
         {
             return cellPositions
                 .Select(cell => cell.Number)

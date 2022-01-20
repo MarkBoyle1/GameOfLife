@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using GameOfLife;
+using GameOfLife.Input;
 using Xunit;
 
 namespace GameOfLifeTests

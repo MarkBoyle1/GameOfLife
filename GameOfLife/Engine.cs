@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using GameOfLife.Input;
 
 namespace GameOfLife
@@ -7,29 +8,42 @@ namespace GameOfLife
     {
         private IUserInput _input;
         private IOutput _output;
-        private SetUp _setUp;
+        private SeedManager _seedManager;
         private GenerationUpdater _generationUpdater;
         private GridBuilder _gridBuilder;
+        private GameManager _gameManager;
         
         public Engine(IUserInput input, IOutput output)
         {
             _input = input;
             _output = output;
-            _setUp = new SetUp(_input);
+            _gameManager = new GameManager();
             _generationUpdater = new GenerationUpdater();
             _gridBuilder = new GridBuilder();
+            _seedManager = new SeedManager(_input, _output);
         }
         
         public void RunProgram()
         {
-            GenerationInfo currentGeneration = _setUp.GetSeedGeneration();
-            GameManager gameManager = new GameManager();
-            
-            while (!gameManager.CheckForGameFinish(currentGeneration))
+            GenerationInfo nextGeneration;
+
+            GenerationInfo seedGeneration = _seedManager.GetSeedGeneration();
+            Grid grid = _gridBuilder.CreateGrid(seedGeneration);
+            _output.DisplayGrid(grid);
+
+            do
             {
-                Grid grid = _gridBuilder.CreateGrid(currentGeneration);
+                nextGeneration = _generationUpdater.GetNextGeneration(grid);
+                grid = _gridBuilder.CreateGrid(nextGeneration);
                 _output.DisplayGrid(grid);
-                currentGeneration = _generationUpdater.GetNextGeneration(grid);
+            }
+            while (!_gameManager.CheckForGameFinish(nextGeneration));
+
+            bool seedAlreadySaved = _seedManager.CheckIfSeedIsAlreadySaved(seedGeneration);
+
+            if (!seedAlreadySaved)
+            {
+                _seedManager.SaveSeedIfRequested(seedGeneration);
             }
         }
     }
