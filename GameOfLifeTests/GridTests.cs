@@ -29,7 +29,10 @@ namespace GameOfLifeTests
         [Fact]
         public void given_LivingCellsListContainsThree_when_CreateGrid_then_GridCellPositionThreeIsAliveEqualsTrue()
         {
-            List<CellPosition> livingCells = new List<CellPosition>() {new CellPosition(3)};
+            List<CellPosition> livingCells = new List<CellPosition>()
+            {
+                new CellPosition(3)
+            };
             GenerationInfo generation = new GenerationInfo(5, 5, livingCells);
 
             Grid grid = _gridBuilder.CreateGrid(generation);
@@ -38,25 +41,43 @@ namespace GameOfLifeTests
             
             Assert.True(targetCell.IsAlive);
         }
-
+        
         [Fact]
-        public void
-            given_PositionEqualsEight_and_WidthAndHeightEqualFive_when_CalculateNeighbours_then_return_CorrectNeighbours()
+        public void given_LivingCellsListCountEqualsThree_when_CreateGrid_then_GridLivingCellsCountEqualsThree()
         {
-            CellPosition position = new CellPosition(8);
-            int width = 5;
-            int height = 5;
-            
-            List<CellPosition> acutal = _gridBuilder.CalculateNeighbours( position, width,  height);
+            List<CellPosition> livingCells = new List<CellPosition>()
+            {
+                new CellPosition(3),
+                new CellPosition(5),
+                new CellPosition(10)
+            };
+            GenerationInfo generation = new GenerationInfo(5, 5, livingCells);
 
-            Assert.Contains(acutal, cellPosition => cellPosition.Number == 7);
-            Assert.Contains(acutal, cellPosition => cellPosition.Number == 9);
-            Assert.Contains(acutal, cellPosition => cellPosition.Number == 3);
-            Assert.Contains(acutal, cellPosition => cellPosition.Number == 2);
-            Assert.Contains(acutal, cellPosition => cellPosition.Number == 4);
-            Assert.Contains(acutal, cellPosition => cellPosition.Number == 13);
-            Assert.Contains(acutal, cellPosition => cellPosition.Number == 12);
-            Assert.Contains(acutal, cellPosition => cellPosition.Number == 14);
+            Grid grid = _gridBuilder.CreateGrid(generation);
+
+            int numberOfLivingCells = grid.Cells.Count(cell => cell.IsAlive);
+
+            Assert.Equal(3, numberOfLivingCells);
         }
+
+        // [Fact]
+        // public void
+        //     given_PositionEqualsEight_and_WidthAndHeightEqualFive_when_CalculateNeighbours_then_return_CorrectNeighbours()
+        // {
+        //     CellPosition position = new CellPosition(8);
+        //     int width = 5;
+        //     int height = 5;
+        //     
+        //     List<CellPosition> acutal = _gridBuilder.CalculateNeighbours( position, width,  height);
+        //
+        //     Assert.Contains(acutal, cellPosition => cellPosition.Number == 7);
+        //     Assert.Contains(acutal, cellPosition => cellPosition.Number == 9);
+        //     Assert.Contains(acutal, cellPosition => cellPosition.Number == 3);
+        //     Assert.Contains(acutal, cellPosition => cellPosition.Number == 2);
+        //     Assert.Contains(acutal, cellPosition => cellPosition.Number == 4);
+        //     Assert.Contains(acutal, cellPosition => cellPosition.Number == 13);
+        //     Assert.Contains(acutal, cellPosition => cellPosition.Number == 12);
+        //     Assert.Contains(acutal, cellPosition => cellPosition.Number == 14);
+        // }
     }
 }

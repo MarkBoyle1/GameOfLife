@@ -15,7 +15,7 @@ namespace GameOfLife
             _input = input;
             _output = output;
         }
-        public int MoveActiveCell(int activeCell, int width, int height)
+        private int MoveActiveCell(int activeCell, int width, int height)
         {
             string input = _input.GetUserInput();
             

@@ -39,7 +39,12 @@ namespace GameOfLife
             }
             while (!_gameManager.CheckForGameFinish(nextGeneration));
 
-            _seedManager.SaveSeedIfRequested(seedGeneration);
+            bool seedAlreadySaved = _seedManager.CheckIfSeedIsAlreadySaved(seedGeneration);
+
+            if (!seedAlreadySaved)
+            {
+                _seedManager.SaveSeedIfRequested(seedGeneration);
+            }
         }
     }
 }

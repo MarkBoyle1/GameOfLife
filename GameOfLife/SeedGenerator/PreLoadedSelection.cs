@@ -24,11 +24,6 @@ namespace GameOfLife
             return _height;
         }
 
-        public int MoveActiveCell(int activeCell, int width, int height)
-        {
-            return 1;
-        }
-
         public List<CellPosition> GetPositionsOfLivingCells(int width, int height)
         {
             return _livingCells;

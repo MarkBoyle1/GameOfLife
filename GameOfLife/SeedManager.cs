@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using GameOfLife.Input;
 
@@ -95,6 +96,18 @@ namespace GameOfLife
             }
                 
             _seedSaver.SaveSeeds(_savedSeeds);
+        }
+
+        public bool CheckIfSeedIsAlreadySaved(GenerationInfo seed)
+        {
+            int numberOfSameSeeds = _savedSeeds
+                .Where(savedSeed => savedSeed.SeedInfo.Width == seed.Width)
+                .Where(savedSeed => savedSeed.SeedInfo.Height == seed.Height)
+                .Count(savedSeed => Enumerable
+                    .Select<CellPosition, int>(savedSeed.SeedInfo.LivingCells, cell => cell.Number)
+                    .All(seed.LivingCells.Select(cell => cell.Number).Contains));
+
+            return numberOfSameSeeds > 0;
         }
     }
 }
