@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using GameOfLife;
 using GameOfLife.Input;
 using Xunit;
@@ -15,7 +16,7 @@ namespace GameOfLifeTests
         }
         
         [Fact]
-        public void LoadFromSeedStorage()
+        public void given_JsonFileContainsThreeSeeds_when_LoadSavedSeeds_then_ListOfSavedSeedsCountEqualsThree()
         {
             ISeedSaver seedSaver = new JSONSeedSaver(_testFilePath);
 
@@ -25,7 +26,17 @@ namespace GameOfLifeTests
         }
         
         [Fact]
-        public void SaveToSeedStorage()
+        public void given_FirstSeedOnJsonIsNamedGospersGliderGun_when_LoadSavedSeeds_then_FirstSeedIsNamedGospersGliderGun()
+        {
+            ISeedSaver seedSaver = new JSONSeedSaver(_testFilePath);
+
+            List<SavedSeed> seeds = seedSaver.LoadSavedSeeds();
+
+            Assert.Equal("GosperGliderGun", seeds.First().Name);
+        }
+        
+        [Fact]
+        public void given_JsonFileContainsThreeSeeds_and_ANewSeedIsAdded_when_SaveSeeds_then_JsonFileContainsFourSeeds()
         {
             ISeedSaver seedSaver = new JSONSeedSaver(_testFilePath);
 
@@ -42,6 +53,7 @@ namespace GameOfLifeTests
             List<SavedSeed> testSeeds = seedSaver.LoadSavedSeeds();
             
             Assert.Equal(4, testSeeds.Count);
+            Assert.Equal("test", testSeeds[3].Name);
             
             seedSaver.SaveSeeds(originalSeeds);
         }
