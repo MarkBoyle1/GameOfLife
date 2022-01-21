@@ -20,7 +20,7 @@ namespace GameOfLife
                     Console.Write(Constants.DeadCell);
                 }
                 
-                if (cell.Position % grid.Width == 0)
+                if (cell.Position.Number % grid.Width == 0)
                 {
                     Console.WriteLine();
                 }

@@ -87,7 +87,7 @@ namespace GameOfLifeTests
 
             GenerationInfo nextGeneration = _generationUpdater.GetNextGeneration(grid);
             grid = _gridBuilder.CreateGrid(nextGeneration);
-            Cell targetCell = grid.Cells.Find(cell => cell.Position == 8);
+            Cell targetCell = grid.Cells.Find(cell => cell.Position.Number == 8);
 
             Assert.False(targetCell.IsAlive);
         }
@@ -108,7 +108,7 @@ namespace GameOfLifeTests
 
             GenerationInfo nextGeneration = _generationUpdater.GetNextGeneration(grid);
             grid = _gridBuilder.CreateGrid(nextGeneration);
-            Cell targetCell = grid.Cells.Find(cell => cell.Position == 8);
+            Cell targetCell = grid.Cells.Find(cell => cell.Position.Number == 8);
 
             Assert.False(targetCell.IsAlive);
         }
@@ -128,7 +128,7 @@ namespace GameOfLifeTests
 
             GenerationInfo nextGeneration = _generationUpdater.GetNextGeneration(grid);
             grid = _gridBuilder.CreateGrid(nextGeneration);
-            Cell targetCell = grid.Cells.Find(cell => cell.Position == 8);
+            Cell targetCell = grid.Cells.Find(cell => cell.Position.Number == 8);
 
             Assert.True(targetCell.IsAlive);
         }
@@ -149,7 +149,7 @@ namespace GameOfLifeTests
 
             GenerationInfo nextGeneration = _generationUpdater.GetNextGeneration(grid);
             grid = _gridBuilder.CreateGrid(nextGeneration);
-            Cell targetCell = grid.Cells.Find(cell => cell.Position == 8);
+            Cell targetCell = grid.Cells.Find(cell => cell.Position.Number == 8);
 
             Assert.True(targetCell.IsAlive);
         }
@@ -171,7 +171,7 @@ namespace GameOfLifeTests
 
             GenerationInfo nextGeneration = _generationUpdater.GetNextGeneration(grid);
             grid = _gridBuilder.CreateGrid(nextGeneration);
-            Cell targetCell = grid.Cells.Find(cell => cell.Position == 8);
+            Cell targetCell = grid.Cells.Find(cell => cell.Position.Number == 8);
 
             Assert.False(targetCell.IsAlive);
         }
@@ -190,7 +190,7 @@ namespace GameOfLifeTests
 
             GenerationInfo nextGeneration = _generationUpdater.GetNextGeneration(grid);
             grid = _gridBuilder.CreateGrid(nextGeneration);
-            Cell targetCell = grid.Cells.Find(cell => cell.Position == 8);
+            Cell targetCell = grid.Cells.Find(cell => cell.Position.Number == 8);
 
             Assert.False(targetCell.IsAlive);
         }

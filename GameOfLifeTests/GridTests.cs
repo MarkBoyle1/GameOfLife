@@ -37,7 +37,7 @@ namespace GameOfLifeTests
 
             Grid grid = _gridBuilder.CreateGrid(generation);
 
-            Cell targetCell = grid.Cells.Find(x => x.Position == 3);
+            Cell targetCell = grid.Cells.Find(x => x.Position.Number == 3);
             
             Assert.True(targetCell.IsAlive);
         }
