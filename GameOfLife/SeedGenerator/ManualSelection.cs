@@ -15,6 +15,48 @@ namespace GameOfLife
             _input = input;
             _output = output;
         }
+        
+        public List<CellPosition> GetPositionsOfLivingCells(int width, int height)
+        {
+            _output.DisplayMessage(OutputMessages.SelectLivingCellsForSeedGeneration);
+            List<int> displayGrid =  Enumerable.Range(1, width * height).ToList();
+            int activeCell = Constants.StartingCellPositionForManualSelection;
+            List<int> selectedCells = new List<int>();
+            bool userIsSelecting = true;
+            _output.DisplaySelectionGrid(displayGrid, activeCell, selectedCells, width);
+
+            while (userIsSelecting)
+            {
+                try
+                {
+                    _output.DisplayMessage(OutputMessages.ChooseSelectionGridAction());
+                    activeCell = MoveActiveCell(activeCell, width, height);
+                }
+                catch (InputIsSelectDeselectException)
+                {
+                    if (selectedCells.Contains(activeCell))
+                    {
+                        selectedCells.Remove(activeCell);
+                    }
+                    else
+                    {
+                        selectedCells.Add(activeCell);
+                    }
+                }
+                catch (FinishedSelectingException)
+                {
+                    userIsSelecting = false;
+                }
+                _output.DisplaySelectionGrid(displayGrid, activeCell, selectedCells, width);
+
+            }
+
+            List<CellPosition> livingCellPositions = new List<CellPosition>();
+            selectedCells.ForEach(number => livingCellPositions.Add(new CellPosition(number)));
+
+            return livingCellPositions;
+        }
+        
         private int MoveActiveCell(int activeCell, int width, int height)
         {
             string input = _input.GetUserInput();
@@ -68,47 +110,6 @@ namespace GameOfLife
             }
 
             return activeCell;
-        }
-
-        public List<CellPosition> GetPositionsOfLivingCells(int width, int height)
-        {
-            _output.DisplayMessage(OutputMessages.SelectLivingCellsForSeedGeneration);
-            List<int> displayGrid =  Enumerable.Range(1, width * height).ToList();
-            int activeCell = Constants.StartingCellPositionForManualSelection;
-            List<int> selectedCells = new List<int>();
-            bool userIsSelecting = true;
-            _output.DisplaySelectionGrid(displayGrid, activeCell, selectedCells, width);
-
-            while (userIsSelecting)
-            {
-                try
-                {
-                    _output.DisplayMessage(OutputMessages.ChooseSelectionGridAction());
-                    activeCell = MoveActiveCell(activeCell, width, height);
-                }
-                catch (InputIsSelectDeselectException)
-                {
-                    if (selectedCells.Contains(activeCell))
-                    {
-                        selectedCells.Remove(activeCell);
-                    }
-                    else
-                    {
-                        selectedCells.Add(activeCell);
-                    }
-                }
-                catch (FinishedSelectingException)
-                {
-                    userIsSelecting = false;
-                }
-                _output.DisplaySelectionGrid(displayGrid, activeCell, selectedCells, width);
-
-            }
-
-            List<CellPosition> livingCellPositions = new List<CellPosition>();
-            selectedCells.ForEach(number => livingCellPositions.Add(new CellPosition(number)));
-
-            return livingCellPositions;
         }
 
         public int GetGridWidth()
