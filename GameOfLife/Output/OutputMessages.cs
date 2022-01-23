@@ -10,6 +10,7 @@ namespace GameOfLife
         public const string SavedSeedSelection = "Please enter the number of the choosen seed: ";
         public const string WouldYouLikeToSaveTheSeed = "Would you like to save the seed generation?: y/n";
         public const string AskForNameOfSavedSeed = "Please enter the name of this seed:";
+        public const string NoExternalFileFound = "No external file found";
 
         public static string ChooseSelectionGridAction()
         {

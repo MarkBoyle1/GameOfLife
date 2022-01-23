@@ -11,6 +11,7 @@ namespace GameOfLife
     {
         private IUserInput _input;
         private IOutput _output;
+        private string _filePath;
         private ISeedSaver _seedSaver;
         private List<SavedSeed> _savedSeeds;
 
@@ -18,15 +19,33 @@ namespace GameOfLife
         {
             _input = input;
             _output = output;
-            _seedSaver = new JSONSeedSaver(filePath);
-            _savedSeeds = _seedSaver.LoadSavedSeeds();
+            _filePath = filePath;
         }
         
         public GenerationInfo GetSeedGeneration()
         {
+            try
+            {
+                _seedSaver = new JSONSeedSaver(_filePath);
+                _savedSeeds = _seedSaver.LoadSavedSeeds();
+            }
+            catch (FileNotFoundException)
+            {
+                _output.DisplayMessage(OutputMessages.NoExternalFileFound);
+                _savedSeeds = new List<SavedSeed>();
+            }
+            
             ISeedGenerator seedGenerator;
+            bool userWantsToLoadSavedSeed;
 
-            bool userWantsToLoadSavedSeed = CheckIfUserWantsToUseASavedSeed();
+            if (_savedSeeds.Count > 0)
+            {
+                userWantsToLoadSavedSeed = CheckIfUserWantsToUseASavedSeed();
+            }
+            else
+            {
+                userWantsToLoadSavedSeed = false;
+            }
 
             if (userWantsToLoadSavedSeed)
             {
@@ -77,25 +96,28 @@ namespace GameOfLife
         }
         public void SaveSeedIfRequested(GenerationInfo seedGeneration)
         {
-            _output.DisplayMessage(OutputMessages.WouldYouLikeToSaveTheSeed);
-            string response = _input.GetUserInput();
+            if (File.Exists(_filePath))
+            {
+                _output.DisplayMessage(OutputMessages.WouldYouLikeToSaveTheSeed);
+                string response = _input.GetUserInput();
             
-            while (response != Constants.YesResponse && response != Constants.NoResponse)
-            {
-                _output.DisplayMessage(OutputMessages.InvalidInput);
-                response = _input.GetUserInput();
-            }
+                while (response != Constants.YesResponse && response != Constants.NoResponse)
+                {
+                    _output.DisplayMessage(OutputMessages.InvalidInput);
+                    response = _input.GetUserInput();
+                }
         
-            if (response == Constants.YesResponse)
-            {
-                _output.DisplayMessage(OutputMessages.AskForNameOfSavedSeed);
-                string name = _input.GetUserInput();
+                if (response == Constants.YesResponse)
+                {
+                    _output.DisplayMessage(OutputMessages.AskForNameOfSavedSeed);
+                    string name = _input.GetUserInput();
         
-                SavedSeed newSeed = new SavedSeed(name, seedGeneration);
-                _savedSeeds.Add(newSeed);
-            }
+                    SavedSeed newSeed = new SavedSeed(name, seedGeneration);
+                    _savedSeeds.Add(newSeed);
+                    _seedSaver.SaveSeeds(_savedSeeds);
+                }
                 
-            _seedSaver.SaveSeeds(_savedSeeds);
+            }
         }
 
         public bool CheckIfSeedIsAlreadySaved(GenerationInfo seed)
