@@ -29,7 +29,7 @@ namespace GameOfLife
             GenerationInfo seedGeneration = _seedManager.GetSeedGeneration();
             Grid grid = _gridBuilder.CreateGrid(seedGeneration);
             _output.DisplayGrid(grid);
-
+            
             do
             {
                 nextGeneration = _generationUpdater.GetNextGeneration(grid);

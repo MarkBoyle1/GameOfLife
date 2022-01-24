@@ -20,7 +20,7 @@ namespace GameOfLifeTests
         {
             ISeedSaver seedSaver = new JSONSeedSaver(_testFilePath);
 
-            List<SavedSeed> seeds = seedSaver.LoadSavedSeeds();
+            List<GenerationInfo> seeds = seedSaver.LoadSavedSeeds();
 
             Assert.Equal(3, seeds.Count);
         }
@@ -30,7 +30,7 @@ namespace GameOfLifeTests
         {
             ISeedSaver seedSaver = new JSONSeedSaver(_testFilePath);
 
-            List<SavedSeed> seeds = seedSaver.LoadSavedSeeds();
+            List<GenerationInfo> seeds = seedSaver.LoadSavedSeeds();
 
             Assert.Equal("GosperGliderGun", seeds.First().Name);
         }
@@ -40,17 +40,18 @@ namespace GameOfLifeTests
         {
             ISeedSaver seedSaver = new JSONSeedSaver(_testFilePath);
 
-            List<SavedSeed> originalSeeds = seedSaver.LoadSavedSeeds();
+            List<GenerationInfo> originalSeeds = seedSaver.LoadSavedSeeds();
             Assert.Equal(3, originalSeeds.Count);
 
-            List<SavedSeed> newSavedSeeds = new List<SavedSeed>(originalSeeds) {};
+            List<GenerationInfo> newSavedSeeds = new List<GenerationInfo>(originalSeeds) {};
 
-            SavedSeed newSeed = new SavedSeed("test", new GenerationInfo(5, 5, new List<CellPosition>()));
+            GenerationInfo newSeed = new GenerationInfo(5, 5, new List<CellPosition>());
+            newSeed.Name = "test";
             newSavedSeeds.Add(newSeed);
 
             seedSaver.SaveSeeds(newSavedSeeds);
             
-            List<SavedSeed> testSeeds = seedSaver.LoadSavedSeeds();
+            List<GenerationInfo> testSeeds = seedSaver.LoadSavedSeeds();
             
             Assert.Equal(4, testSeeds.Count);
             Assert.Equal("test", testSeeds[3].Name);

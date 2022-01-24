@@ -12,7 +12,7 @@ namespace GameOfLife
         public const string YesResponse = "y";
         public const string NoResponse = "n";
 
-        public const string JSONSavedSeedsFilePath = "JSONSavedSeeds.json";
+        public const string JsonSavedSeedsFilePath = "JSONSavedSeeds.json";
 
         public const int TimeBetweenGenerationsInMilliseconds = 200;
         public const int MinimumGridMeasurement = 3;
