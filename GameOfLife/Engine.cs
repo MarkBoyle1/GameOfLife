@@ -6,7 +6,6 @@ namespace GameOfLife
 {
     public class Engine
     {
-        private IUserInput _input;
         private IOutput _output;
         private SeedManager _seedManager;
         private GenerationUpdater _generationUpdater;
@@ -15,18 +14,18 @@ namespace GameOfLife
         
         public Engine(IUserInput input, IOutput output)
         {
-            _input = input;
             _output = output;
             _gameManager = new GameManager();
             _generationUpdater = new GenerationUpdater();
             _gridBuilder = new GridBuilder();
-            _seedManager = new SeedManager(_input, _output);
+            _seedManager = new SeedManager(input, _output);
         }
         
         public void RunProgram()
         {
             GenerationInfo nextGeneration;
 
+            _output.DisplayMessage(OutputMessages.Welcome);
             GenerationInfo seedGeneration = _seedManager.GetSeedGeneration();
             Grid grid = _gridBuilder.CreateGrid(seedGeneration);
             _output.DisplayGrid(grid);

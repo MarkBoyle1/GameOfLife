@@ -4,13 +4,14 @@ namespace GameOfLife
     {
         public const string InvalidInput = "Invalid Input. Please Try Again.";
         public const string EnterGridWidth = "Please enter the grid width:";
-        public const string EnterGridHeight = "Please enter the grid height";
+        public const string EnterGridHeight = "Please enter the grid height:";
         public const string SelectLivingCellsForSeedGeneration = "Please enter the living cells for seed generation:";
         public const string AskIfUserWantsToLoadSavedSeed = "Do you want to load a saved seed? y/n :";
         public const string SavedSeedSelection = "Please enter the number of the choosen seed: ";
         public const string WouldYouLikeToSaveTheSeed = "Would you like to save the seed generation?: y/n";
         public const string AskForNameOfSavedSeed = "Please enter the name of this seed:";
         public const string NoExternalFileFound = "No external file found";
+        public const string Welcome = "Welcome to Conway's Game Of Life!";
 
         public static string ChooseSelectionGridAction()
         {

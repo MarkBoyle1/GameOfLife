@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text.Json;
 using GameOfLife.Input;
 
 namespace GameOfLife
@@ -90,6 +89,17 @@ namespace GameOfLife
             }
 
             string response = _input.GetUserInput();
+            
+            List<string> possibleResponses = Enumerable.Range(0, savedSeeds.Count)
+                .ToList()
+                .ConvertAll(value => value.ToString());
+
+            while(!int.TryParse(response, out int number) || !possibleResponses.Contains(response))
+            {
+                _output.DisplayMessage(OutputMessages.InvalidInput);
+                response = _input.GetUserInput();
+            }
+            
             int selectedSeedNumber = Convert.ToInt16(response);
 
             return savedSeeds[selectedSeedNumber];
