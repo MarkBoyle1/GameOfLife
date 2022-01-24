@@ -7,13 +7,24 @@ namespace GameOfLife
     public class GameManager
     {
         private List<GenerationInfo> _previousGenerations;
+        private int _currentGenerationCount;
+        private int _generationLimit;
 
-        public GameManager()
+        public GameManager(int generationLimit = Constants.GenerationLimit)
         {
             _previousGenerations = new List<GenerationInfo>();
+            _generationLimit = generationLimit;
+            _currentGenerationCount = 0;
         }
         public bool CheckForGameFinish(GenerationInfo generation)
         {
+            _currentGenerationCount++;
+
+            if (_currentGenerationCount >= _generationLimit)
+            {
+                return true;
+            }
+            
             if (generation.LivingCells.Count == 0)
             {
                 return true;

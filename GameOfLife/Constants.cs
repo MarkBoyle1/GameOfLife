@@ -18,6 +18,7 @@ namespace GameOfLife
         public const int MinimumGridMeasurement = 3;
         public const int NumberOfPreviousGenerationsKeptToCheckForInfiniteLoop = 5;
         public const int StartingCellPositionForManualSelection = 1;
+        public const int GenerationLimit = 100;
 
         public const string LivingCell = "\u25fc";  //medium square
         public const string DeadCell = " ";

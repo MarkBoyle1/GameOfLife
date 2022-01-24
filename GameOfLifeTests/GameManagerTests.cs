@@ -71,5 +71,29 @@ namespace GameOfLifeTests
             Assert.False(gameManager.CheckForGameFinish(generation2));
             Assert.True(gameManager.CheckForGameFinish(generation3));
         }
+        
+        [Fact]
+        public void given_GenerationLimitEqualsThree_and_ThreeArePlayed_when_CheckForGameFinish_then_return_true()
+        {
+            GameManager gameManager = new GameManager(3);
+            GenerationInfo generation1 = new GenerationInfo(5, 5, new List<CellPosition>()
+            {
+                new CellPosition(1)
+            });
+            GenerationInfo generation2 = new GenerationInfo(5, 5, new List<CellPosition>()
+            {
+                new CellPosition(1),
+                new CellPosition(3)
+            });
+            GenerationInfo generation3 = new GenerationInfo(5, 5, new List<CellPosition>()
+            {
+                new CellPosition(1),
+                new CellPosition(2)
+            });
+
+            Assert.False(gameManager.CheckForGameFinish(generation1));
+            Assert.False(gameManager.CheckForGameFinish(generation2));
+            Assert.True(gameManager.CheckForGameFinish(generation3));
+        }
     }
 }
