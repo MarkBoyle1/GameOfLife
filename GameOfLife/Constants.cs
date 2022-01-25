@@ -1,3 +1,5 @@
+using System;
+
 namespace GameOfLife
 {
     public class Constants
@@ -26,5 +28,9 @@ namespace GameOfLife
         public const string DeselectedActiveCell = "\u25a2"; //empty square
         public const string SelectedCell = "\u25fc"; //full square
         public const string DeselectedCell = " ";
+
+        public const ConsoleColor ActiveCellColour = ConsoleColor.Magenta;
+        public const ConsoleColor SelectedCellColour = ConsoleColor.DarkCyan;
+        public const ConsoleColor DefaultColour = ConsoleColor.White;
     }
 }

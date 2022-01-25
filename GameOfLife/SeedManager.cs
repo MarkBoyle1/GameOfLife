@@ -12,7 +12,6 @@ namespace GameOfLife
         private IOutput _output;
         private string _filePath;
         private ISeedSaver _seedSaver;
-        // private List<SavedSeed> _savedSeeds;
         private List<GenerationInfo> _savedSeeds;
 
         public SeedManager(IUserInput input, IOutput output, string filePath = Constants.JsonSavedSeedsFilePath)
@@ -32,7 +31,6 @@ namespace GameOfLife
             catch (FileNotFoundException)
             {
                 _output.DisplayMessage(OutputMessages.NoExternalFileFound);
-                // _savedSeeds = new List<SavedSeed>();
                 _savedSeeds = new List<GenerationInfo>();
 
             }
@@ -128,24 +126,12 @@ namespace GameOfLife
                     seedGeneration.Name = name;
                     _savedSeeds.Add(seedGeneration);
                     _seedSaver.SaveSeeds(_savedSeeds);
-
-                    // SavedSeed newSeed = new SavedSeed(name, seedGeneration);
-                    // _savedSeeds.Add(newSeed);
-                    // _seedSaver.SaveSeeds(_savedSeeds);
                 }
-                
             }
         }
 
         public bool CheckIfSeedIsAlreadySaved(GenerationInfo seed)
         {
-            // int numberOfSameSeeds = _savedSeeds
-            //     .Where(savedSeed => savedSeed.SeedInfo.Width == seed.Width)
-            //     .Where(savedSeed => savedSeed.SeedInfo.Height == seed.Height)
-            //     .Count(savedSeed => Enumerable
-            //         .Select<CellPosition, int>(savedSeed.SeedInfo.LivingCells, cell => cell.Number)
-            //         .All(seed.LivingCells.Select(cell => cell.Number).Contains));
-            
             int numberOfSameSeeds = _savedSeeds
                 .Where(savedSeed => savedSeed.Width == seed.Width)
                 .Where(savedSeed => savedSeed.Height == seed.Height)
