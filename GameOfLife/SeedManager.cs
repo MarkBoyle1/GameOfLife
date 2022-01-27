@@ -32,7 +32,6 @@ namespace GameOfLife
             {
                 _output.DisplayMessage(OutputMessages.NoExternalFileFound);
                 _savedSeeds = new List<GenerationInfo>();
-
             }
             
             ISeedGenerator seedGenerator;
@@ -95,7 +94,7 @@ namespace GameOfLife
                 .ToList()
                 .ConvertAll(value => value.ToString());
 
-            while(!int.TryParse(response, out int number) || !possibleResponses.Contains(response))
+            while(!possibleResponses.Contains(response))
             {
                 _output.DisplayMessage(OutputMessages.InvalidInput);
                 response = _input.GetUserInput();
@@ -105,6 +104,7 @@ namespace GameOfLife
 
             return savedSeeds[selectedSeedNumber];
         }
+        
         public void SaveSeedIfRequested(GenerationInfo seedGeneration)
         {
             if (File.Exists(_filePath))

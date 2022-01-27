@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using GameOfLife;
 using GameOfLife.Input;
+using Moq;
 using Xunit;
 
 namespace GameOfLifeTests
@@ -21,6 +22,13 @@ namespace GameOfLifeTests
         [Fact]
         public void given_InputEqualsFiveAndSix_when_GetSeedGeneration_then_seedGenerationWidthAndHeightEqualsFiveAndSix()
         {
+            Mock<IUserInput> mockInput = new Mock<IUserInput>();
+            mockInput.SetupSequence(x => x.GetUserInput())
+                .Returns(Constants.NoResponse)
+                .Returns("5")
+                .Returns("6")
+                .Returns(Constants.FinishedSelecting);
+            
             IUserInput input = new TestInput(new List<string>()
             {
                 Constants.NoResponse,
@@ -29,7 +37,7 @@ namespace GameOfLifeTests
                 Constants.FinishedSelecting
             });
 
-            SeedManager seedManager = new SeedManager(input, new ConsoleOutput(), _testFilePath);
+            SeedManager seedManager = new SeedManager(mockInput.Object, new ConsoleOutput(), _testFilePath);
 
             GenerationInfo seedGeneration = seedManager.GetSeedGeneration();
             

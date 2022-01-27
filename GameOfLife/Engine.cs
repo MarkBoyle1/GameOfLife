@@ -23,8 +23,8 @@ namespace GameOfLife
         public void RunProgram()
         {
             GenerationInfo nextGeneration;
-
             _output.DisplayMessage(OutputMessages.Welcome);
+            
             GenerationInfo seedGeneration = _seedManager.GetSeedGeneration();
             Grid grid = _gridBuilder.CreateGrid(seedGeneration);
             _output.DisplayGrid(grid);
