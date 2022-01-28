@@ -17,7 +17,7 @@ namespace GameOfLife
             _gameManager = new GameManager();
             _generationUpdater = new GenerationUpdater();
             _gridBuilder = new GridBuilder();
-            _seedManager = new SeedManager(input, _output);
+            _seedManager = new SeedManager(input, output);
         }
         
         public void RunProgram()

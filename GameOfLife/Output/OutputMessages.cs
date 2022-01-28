@@ -11,6 +11,7 @@ namespace GameOfLife
         public const string WouldYouLikeToSaveTheSeed = "Would you like to save the seed generation?: y/n";
         public const string AskForNameOfSavedSeed = "Please enter the name of this seed:";
         public const string NoExternalFileFound = "No external file found";
+        public const string CannotReadFile = "File could not be loaded.";
         public const string Welcome = "Welcome to Conway's Game Of Life!";
 
         public static string ChooseSelectionGridAction()
@@ -20,13 +21,13 @@ namespace GameOfLife
                            + "Left = " + Constants.Left + System.Environment.NewLine
                            + "Right = " + Constants.Right + System.Environment.NewLine
                            + "Selected/Deselect = " + Constants.SelectDeselect + System.Environment.NewLine
-                           + "Finished Selecting = " + Constants.FinishedSelecting + System.Environment.NewLine
+                           + "Finish Selecting = " + Constants.FinishedSelecting + System.Environment.NewLine
                            + "Please select an action:";
         }
 
-        public static string GridMeasurementTooLow()
+        public static string InvalidGridMeasurement()
         {
-            return "Invalid number. The minimum number possible is " + Constants.MinimumGridMeasurement;
+            return "Invalid input. Please select a number greater than or equal to " + Constants.MinimumGridMeasurement;
         }
     }
 }

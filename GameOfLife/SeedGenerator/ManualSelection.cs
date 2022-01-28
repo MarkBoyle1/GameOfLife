@@ -19,10 +19,12 @@ namespace GameOfLife
         public List<CellPosition> GetPositionsOfLivingCells(int width, int height)
         {
             _output.DisplayMessage(OutputMessages.SelectLivingCellsForSeedGeneration);
+            
             List<int> displayGrid =  Enumerable.Range(1, width * height).ToList();
             int activeCell = Constants.StartingCellPositionForManualSelection;
             List<int> selectedCells = new List<int>();
             bool userIsSelecting = true;
+            
             _output.DisplaySelectionGrid(displayGrid, activeCell, selectedCells, width);
 
             while (userIsSelecting)
@@ -64,44 +66,24 @@ namespace GameOfLife
             switch (input)
             {
                 case Constants.Left:
-                    if (activeCell % width == 1)
-                    {
-                        activeCell += width -1;
-                    }
-                    else
-                    { 
-                        activeCell--;
-                    }
+                    activeCell = activeCell % width == 1 
+                        ? activeCell + width - 1 
+                        : activeCell - 1;
                     break;
                 case Constants.Right:
-                    if (activeCell % width == 0)
-                    {
-                        activeCell -= width - 1;
-                    }
-                    else
-                    { 
-                        activeCell++;
-                    }
+                    activeCell = activeCell % width == 0 
+                        ? activeCell - width - 1 
+                        : activeCell + 1;
                     break;
                 case Constants.Up:
-                    if (activeCell <= width)
-                    {
-                        activeCell += width * height - width;
-                    }
-                    else
-                    {
-                        activeCell -= width;
-                    }
+                    activeCell = activeCell <= width 
+                        ? activeCell + width * height - width 
+                        : activeCell - width;
                     break;
                 case Constants.Down:
-                    if (activeCell > (width * height) - width)
-                    {
-                        activeCell -= width * height - width;
-                    }
-                    else
-                    {
-                        activeCell += width;
-                    }
+                    activeCell = activeCell > (width * height) - width
+                        ? activeCell - width * height - width
+                        : activeCell + width;
                     break;
                 case Constants.SelectDeselect:
                     throw new InputIsSelectDeselectException();
@@ -128,17 +110,9 @@ namespace GameOfLife
         {
             string userResponse = _input.GetUserInput();
 
-            int number;
-
-            while (!int.TryParse(userResponse, out number))
+            while (!int.TryParse(userResponse, out int number) || Convert.ToInt16(userResponse) < Constants.MinimumGridMeasurement)
             {
-                _output.DisplayMessage(OutputMessages.InvalidInput);
-                userResponse = _input.GetUserInput();
-            }
-
-            while (Convert.ToInt16(userResponse) < Constants.MinimumGridMeasurement)
-            {
-                _output.DisplayMessage(OutputMessages.GridMeasurementTooLow());
+                _output.DisplayMessage(OutputMessages.InvalidGridMeasurement());
                 userResponse = _input.GetUserInput();
             }
 

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using GameOfLife.Input;
 
 namespace GameOfLife
@@ -33,18 +34,17 @@ namespace GameOfLife
                 _output.DisplayMessage(OutputMessages.NoExternalFileFound);
                 _savedSeeds = new List<GenerationInfo>();
             }
+            catch (JsonException)
+            {
+                _output.DisplayMessage(OutputMessages.CannotReadFile);
+                _savedSeeds = new List<GenerationInfo>();
+            }
             
             ISeedGenerator seedGenerator;
-            bool userWantsToLoadSavedSeed;
-
-            if (_savedSeeds.Count > 0)
-            {
-                userWantsToLoadSavedSeed = CheckIfUserWantsToUseASavedSeed();
-            }
-            else
-            {
-                userWantsToLoadSavedSeed = false;
-            }
+            
+            bool userWantsToLoadSavedSeed = _savedSeeds.Count > 0 
+                ? CheckIfUserWantsToUseASavedSeed() 
+                : false;
 
             if (userWantsToLoadSavedSeed)
             {

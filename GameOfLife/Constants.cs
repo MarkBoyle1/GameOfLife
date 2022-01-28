@@ -4,6 +4,7 @@ namespace GameOfLife
 {
     public class Constants
     {
+        //Manual Selection Controls
         public const string Left = "a";
         public const string Right = "d";
         public const string Up = "w";
@@ -16,12 +17,13 @@ namespace GameOfLife
 
         public const string JsonSavedSeedsFilePath = "JSONSavedSeeds.json";
 
-        public const int TimeBetweenGenerationsInMilliseconds = 200;
+        public const int TimeBetweenGenerationsInMilliseconds = 100;
         public const int MinimumGridMeasurement = 3;
         public const int NumberOfPreviousGenerationsKeptToCheckForInfiniteLoop = 5;
         public const int StartingCellPositionForManualSelection = 1;
         public const int GenerationLimit = 100;
 
+        //DisplaySymbols
         public const string LivingCell = "\u25fc";  //medium square
         public const string DeadCell = " ";
         public const string SelectedActiveCell = "\u25a3"; //square within a square
@@ -29,6 +31,7 @@ namespace GameOfLife
         public const string SelectedCell = "\u25fc"; //full square
         public const string DeselectedCell = " ";
 
+        //Display Colours
         public const ConsoleColor ActiveCellColour = ConsoleColor.Magenta;
         public const ConsoleColor SelectedCellColour = ConsoleColor.DarkCyan;
         public const ConsoleColor DefaultColour = ConsoleColor.White;
