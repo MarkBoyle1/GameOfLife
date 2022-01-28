@@ -13,6 +13,10 @@ namespace GameOfLife
         public const string NoExternalFileFound = "No external file found";
         public const string CannotReadFile = "File could not be loaded.";
         public const string Welcome = "Welcome to Conway's Game Of Life!";
+        public const string GenerationLimitReached = "The game has reached the generation limit.";
+        public const string InfiniteLoopDetected = "An infinite loop was detected.";
+        public const string NoMoreLivingCells = "There are no more living cells.";
+        public const string GameEndedFromNoChange = "There was no change between generations.";
 
         public static string ChooseSelectionGridAction()
         {

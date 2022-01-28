@@ -14,7 +14,7 @@ namespace GameOfLife
         public Engine(IUserInput input, IOutput output)
         {
             _output = output;
-            _gameManager = new GameManager();
+            _gameManager = new GameManager(output);
             _generationUpdater = new GenerationUpdater();
             _gridBuilder = new GridBuilder();
             _seedManager = new SeedManager(input, output);
