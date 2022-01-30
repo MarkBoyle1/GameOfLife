@@ -8,28 +8,17 @@ namespace GameOfLifeTests
 {
     public class SeedManagerTests
     {
-        private IUserInput _input;
-        private ISeedGenerator _seedGenerator;
         private string _testFilePath;
 
         public SeedManagerTests()
         {
-            _input = new TestInput(new List<string>());
-            _seedGenerator = new ManualSelection(_input, new ConsoleOutput());
             _testFilePath = "../../../../GameOfLife/TestSavedSeedsJsonFile.json";
         }
         
         [Fact]
         public void given_InputEqualsFiveAndSix_when_GetSeedGeneration_then_seedGenerationWidthAndHeightEqualsFiveAndSix()
         {
-            Mock<IUserInput> mockInput = new Mock<IUserInput>();
-            mockInput.SetupSequence(x => x.GetUserInput())
-                .Returns(Constants.NoResponse)
-                .Returns("5")
-                .Returns("6")
-                .Returns(Constants.FinishedSelecting);
-            
-            IUserInput input = new TestInput(new List<string>()
+            IUserInput mockInput = new TestInput(new List<string>()
             {
                 Constants.NoResponse,
                 "5",
@@ -37,7 +26,7 @@ namespace GameOfLifeTests
                 Constants.FinishedSelecting
             });
 
-            SeedManager seedManager = new SeedManager(mockInput.Object, new ConsoleOutput(), _testFilePath);
+            SeedManager seedManager = new SeedManager(mockInput, new ConsoleOutput(), _testFilePath);
 
             GenerationInfo seedGeneration = seedManager.GetSeedGeneration();
             
@@ -48,7 +37,7 @@ namespace GameOfLifeTests
         [Fact]
         public void given_UserSelectsCellNumberTwo_when_GetSeedGeneration_then_seedGenerationLivingCellsContainsTwo()
         {
-            IUserInput input = new TestInput(new List<string>()
+            IUserInput mockInput = new TestInput(new List<string>()
             {
                 Constants.NoResponse,
                 "5",
@@ -58,7 +47,7 @@ namespace GameOfLifeTests
                 Constants.FinishedSelecting
             });
 
-            SeedManager seedManager = new SeedManager(input, new ConsoleOutput(), _testFilePath);
+            SeedManager seedManager = new SeedManager(mockInput, new ConsoleOutput(), _testFilePath);
 
             GenerationInfo seedGeneration = seedManager.GetSeedGeneration();
             
@@ -68,13 +57,13 @@ namespace GameOfLifeTests
         [Fact]
         public void LoadFromSeedStorage()
         {
-            IUserInput input = new TestInput(new List<string>()
+            IUserInput mockInput = new TestInput(new List<string>()
             {
                 Constants.YesResponse,
                 "0",
             });
 
-            SeedManager seedManager = new SeedManager(input, new ConsoleOutput(), _testFilePath);
+            SeedManager seedManager = new SeedManager(mockInput, new ConsoleOutput(), _testFilePath);
 
             GenerationInfo seedGeneration = seedManager.GetSeedGeneration();
             

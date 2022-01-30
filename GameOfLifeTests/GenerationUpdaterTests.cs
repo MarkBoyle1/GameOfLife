@@ -26,8 +26,8 @@ namespace GameOfLifeTests
                 new CellPosition(9)
             };
 
-            GenerationInfo generation = new GenerationInfo(5, 5, currentLivingCells);
-            Grid grid = _gridBuilder.CreateGrid(generation);
+            GenerationInfo mockGeneration = new GenerationInfo(5, 5, currentLivingCells);
+            Grid grid = _gridBuilder.CreateGrid(mockGeneration);
 
             GenerationInfo nextGeneration = _generationUpdater.GetNextGeneration(grid);
             
@@ -47,8 +47,8 @@ namespace GameOfLifeTests
                 new CellPosition(8)
             };
 
-            GenerationInfo generation = new GenerationInfo(5, 5, currentLivingCells);
-            Grid grid = _gridBuilder.CreateGrid(generation);
+            GenerationInfo mockGeneration = new GenerationInfo(5, 5, currentLivingCells);
+            Grid grid = _gridBuilder.CreateGrid(mockGeneration);
 
             GenerationInfo nextGeneration = _generationUpdater.GetNextGeneration(grid);
             
@@ -65,8 +65,8 @@ namespace GameOfLifeTests
                 new CellPosition(13)
             };
 
-            GenerationInfo generation = new GenerationInfo(5, 5, currentLivingCells);
-            Grid grid = _gridBuilder.CreateGrid(generation);
+            GenerationInfo mockGeneration = new GenerationInfo(5, 5, currentLivingCells);
+            Grid grid = _gridBuilder.CreateGrid(mockGeneration);
 
             GenerationInfo nextGeneration = _generationUpdater.GetNextGeneration(grid);
             
@@ -82,8 +82,8 @@ namespace GameOfLifeTests
                 new CellPosition(9)
             };
 
-            GenerationInfo generation = new GenerationInfo(5, 5, currentLivingCells);
-            Grid grid = _gridBuilder.CreateGrid(generation);
+            GenerationInfo mockGeneration = new GenerationInfo(5, 5, currentLivingCells);
+            Grid grid = _gridBuilder.CreateGrid(mockGeneration);
 
             GenerationInfo nextGeneration = _generationUpdater.GetNextGeneration(grid);
             grid = _gridBuilder.CreateGrid(nextGeneration);
@@ -103,8 +103,8 @@ namespace GameOfLifeTests
                 new CellPosition(3)
             };
 
-            GenerationInfo generation = new GenerationInfo(5, 5, currentLivingCells);
-            Grid grid = _gridBuilder.CreateGrid(generation);
+            GenerationInfo mockGeneration = new GenerationInfo(5, 5, currentLivingCells);
+            Grid grid = _gridBuilder.CreateGrid(mockGeneration);
 
             GenerationInfo nextGeneration = _generationUpdater.GetNextGeneration(grid);
             grid = _gridBuilder.CreateGrid(nextGeneration);
@@ -123,8 +123,8 @@ namespace GameOfLifeTests
                 new CellPosition(9),
             };
 
-            GenerationInfo generation = new GenerationInfo(5, 5, currentLivingCells);
-            Grid grid = _gridBuilder.CreateGrid(generation);
+            GenerationInfo mockGeneration = new GenerationInfo(5, 5, currentLivingCells);
+            Grid grid = _gridBuilder.CreateGrid(mockGeneration);
 
             GenerationInfo nextGeneration = _generationUpdater.GetNextGeneration(grid);
             grid = _gridBuilder.CreateGrid(nextGeneration);
@@ -144,8 +144,8 @@ namespace GameOfLifeTests
                 new CellPosition(13)
             };
 
-            GenerationInfo generation = new GenerationInfo(5, 5, currentLivingCells);
-            Grid grid = _gridBuilder.CreateGrid(generation);
+            GenerationInfo mockGeneration = new GenerationInfo(5, 5, currentLivingCells);
+            Grid grid = _gridBuilder.CreateGrid(mockGeneration);
 
             GenerationInfo nextGeneration = _generationUpdater.GetNextGeneration(grid);
             grid = _gridBuilder.CreateGrid(nextGeneration);
@@ -166,8 +166,8 @@ namespace GameOfLifeTests
                 new CellPosition(3)
             };
 
-            GenerationInfo generation = new GenerationInfo(5, 5, currentLivingCells);
-            Grid grid = _gridBuilder.CreateGrid(generation);
+            GenerationInfo mockGeneration = new GenerationInfo(5, 5, currentLivingCells);
+            Grid grid = _gridBuilder.CreateGrid(mockGeneration);
 
             GenerationInfo nextGeneration = _generationUpdater.GetNextGeneration(grid);
             grid = _gridBuilder.CreateGrid(nextGeneration);
@@ -185,8 +185,8 @@ namespace GameOfLifeTests
                 new CellPosition(8),
             };
 
-            GenerationInfo generation = new GenerationInfo(5, 5, currentLivingCells);
-            Grid grid = _gridBuilder.CreateGrid(generation);
+            GenerationInfo mockGeneration = new GenerationInfo(5, 5, currentLivingCells);
+            Grid grid = _gridBuilder.CreateGrid(mockGeneration);
 
             GenerationInfo nextGeneration = _generationUpdater.GetNextGeneration(grid);
             grid = _gridBuilder.CreateGrid(nextGeneration);

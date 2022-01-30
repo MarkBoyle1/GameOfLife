@@ -19,9 +19,9 @@ namespace GameOfLifeTests
         public void given_gridWidthEquals5_and_gridHeightEquals5_when_CreateGrid_then_GridCellsCountEquals25()
         {
             List<CellPosition> livingCells = new List<CellPosition>();
-            GenerationInfo generation = new GenerationInfo(5, 5, livingCells);
+            GenerationInfo mockGeneration = new GenerationInfo(5, 5, livingCells);
 
-            Grid grid = _gridBuilder.CreateGrid(generation);
+            Grid grid = _gridBuilder.CreateGrid(mockGeneration);
             
             Assert.Equal(25, grid.Cells.Count);
         }
@@ -33,9 +33,9 @@ namespace GameOfLifeTests
             {
                 new CellPosition(3)
             };
-            GenerationInfo generation = new GenerationInfo(5, 5, livingCells);
+            GenerationInfo mockGeneration = new GenerationInfo(5, 5, livingCells);
 
-            Grid grid = _gridBuilder.CreateGrid(generation);
+            Grid grid = _gridBuilder.CreateGrid(mockGeneration);
 
             Cell targetCell = grid.Cells.Find(x => x.Position.Number == 3);
             
@@ -51,9 +51,9 @@ namespace GameOfLifeTests
                 new CellPosition(5),
                 new CellPosition(10)
             };
-            GenerationInfo generation = new GenerationInfo(5, 5, livingCells);
+            GenerationInfo mockGeneration = new GenerationInfo(5, 5, livingCells);
 
-            Grid grid = _gridBuilder.CreateGrid(generation);
+            Grid grid = _gridBuilder.CreateGrid(mockGeneration);
 
             int numberOfLivingCells = grid.Cells.Count(cell => cell.IsAlive);
 

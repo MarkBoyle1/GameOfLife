@@ -9,8 +9,8 @@ namespace GameOfLifeTests
         [Fact]
         public void given_SavedSeedWidthEqualsFive_when_GetGridWidth_then_return_Five()
         {
-            GenerationInfo savedSeed = new GenerationInfo(5, 10, new List<CellPosition>());
-            ISeedGenerator seedGenerator = new PreLoadedSelection(savedSeed);
+            GenerationInfo mockSeed = new GenerationInfo(5, 10, new List<CellPosition>());
+            ISeedGenerator seedGenerator = new PreLoadedSelection(mockSeed);
 
             int width = seedGenerator.GetGridWidth();
             
@@ -20,8 +20,8 @@ namespace GameOfLifeTests
         [Fact]
         public void given_SavedSeedHeightEqualsTen_when_GetGridHeight_then_return_Ten()
         {
-            GenerationInfo savedSeed =  new GenerationInfo(5, 10, new List<CellPosition>());
-            ISeedGenerator seedGenerator = new PreLoadedSelection(savedSeed);
+            GenerationInfo mockSeed =  new GenerationInfo(5, 10, new List<CellPosition>());
+            ISeedGenerator seedGenerator = new PreLoadedSelection(mockSeed);
 
             int height = seedGenerator.GetGridHeight();
             
@@ -31,8 +31,8 @@ namespace GameOfLifeTests
         [Fact]
         public void given_SavedSeedContainsLivingCellAtPositionThree_when_GetPositionsOfLivingCells_then_return_ListContaingThree()
         {
-            GenerationInfo savedSeed = new GenerationInfo(5, 10, new List<CellPosition>() {new CellPosition(3)});
-            ISeedGenerator seedGenerator = new PreLoadedSelection(savedSeed);
+            GenerationInfo mockSeed = new GenerationInfo(5, 10, new List<CellPosition>() {new CellPosition(3)});
+            ISeedGenerator seedGenerator = new PreLoadedSelection(mockSeed);
 
             List<CellPosition> livingCells = seedGenerator.GetPositionsOfLivingCells(5,10);
             
