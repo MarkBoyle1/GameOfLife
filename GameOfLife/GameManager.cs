@@ -1,21 +1,35 @@
 using System.Collections.Generic;
 using System.Linq;
-using GameOfLife.Input;
 
 namespace GameOfLife
 {
     public class GameManager
     {
         private List<GenerationInfo> _previousGenerations;
+        private int _currentGenerationCount;
+        private int _generationLimit;
+        private IOutput _output;
 
-        public GameManager()
+        public GameManager(IOutput output, int generationLimit = Constants.GenerationLimit)
         {
             _previousGenerations = new List<GenerationInfo>();
+            _generationLimit = generationLimit;
+            _currentGenerationCount = 0;
+            _output = output;
         }
         public bool CheckForGameFinish(GenerationInfo generation)
         {
+            _currentGenerationCount++;
+
+            if (_currentGenerationCount >= _generationLimit)
+            {
+                _output.DisplayMessage(OutputMessages.GenerationLimitReached);
+                return true;
+            }
+            
             if (generation.LivingCells.Count == 0)
             {
+                _output.DisplayMessage(OutputMessages.NoMoreLivingCells);
                 return true;
             }
             
@@ -27,12 +41,14 @@ namespace GameOfLife
             
             if (CheckForNoChange(generation, _previousGenerations.Last()))
             {
+                _output.DisplayMessage(OutputMessages.GameEndedFromNoChange);
                 _previousGenerations.Add(generation);
                 return true;
             }
 
             if (CheckForInfiniteLoop(generation, _previousGenerations))
             {
+                _output.DisplayMessage(OutputMessages.InfiniteLoopDetected);
                 _previousGenerations.Add(generation);
                 return true;
             }

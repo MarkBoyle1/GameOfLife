@@ -12,13 +12,13 @@ namespace GameOfLife
         {
             _filePath = filePath;
         }
-        public List<SavedSeed> LoadSavedSeeds()
+        public List<GenerationInfo> LoadSavedSeeds()
         {
             string jsonString = File.ReadAllText(_filePath);
-            return JsonSerializer.Deserialize<List<SavedSeed>>(jsonString);
+            return JsonSerializer.Deserialize<List<GenerationInfo>>(jsonString);
         }
 
-        public void SaveSeeds(List<SavedSeed> seeds)
+        public void SaveSeeds(List<GenerationInfo> seeds)
         {
             string savedSeedJsonString = JsonSerializer.Serialize(seeds);
             File.WriteAllTextAsync(_filePath, savedSeedJsonString);

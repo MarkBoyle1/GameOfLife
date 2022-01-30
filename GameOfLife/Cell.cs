@@ -4,13 +4,13 @@ namespace GameOfLife
 {
     public class Cell
     {
-        public int Position;
+        public CellPosition Position;
         public bool IsAlive { get; }
         public List<CellPosition> Neighbours { get; }
 
         public Cell(int position, bool isAlive, List<CellPosition> neighbours)
         {
-            Position = position;
+            Position = new CellPosition(position);
             IsAlive = isAlive;
             Neighbours = neighbours;
         }

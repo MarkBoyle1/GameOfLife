@@ -8,11 +8,11 @@ namespace GameOfLife
         private int _height;
         private List<CellPosition> _livingCells;
         
-        public PreLoadedSelection(SavedSeed savedSeed)
+        public PreLoadedSelection(GenerationInfo savedSeed)
         {
-            _width = savedSeed.SeedInfo.Width;
-            _height = savedSeed.SeedInfo.Height;
-            _livingCells = savedSeed.SeedInfo.LivingCells;
+            _width = savedSeed.Width;
+            _height = savedSeed.Height;
+            _livingCells = savedSeed.LivingCells;
         }
         public int GetGridWidth()
         {

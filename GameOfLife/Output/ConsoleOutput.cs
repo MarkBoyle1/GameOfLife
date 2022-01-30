@@ -20,7 +20,7 @@ namespace GameOfLife
                     Console.Write(Constants.DeadCell);
                 }
                 
-                if (cell.Position % grid.Width == 0)
+                if (cell.Position.Number % grid.Width == 0)
                 {
                     Console.WriteLine();
                 }
@@ -38,22 +38,22 @@ namespace GameOfLife
                     
                 if (cell == activeCell && selectedCells.Contains(cell))
                 {
-                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.ForegroundColor = Constants.ActiveCellColour;
                     Console.Write(Constants.SelectedActiveCell + " ");
                 }
                 else if (cell == activeCell)
                 {
-                    Console.ForegroundColor = ConsoleColor.Magenta;
+                    Console.ForegroundColor = Constants.ActiveCellColour;
                     Console.Write(Constants.DeselectedActiveCell + " ");
                 }
                 else if (selectedCells.Contains(cell))
                 {
-                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    Console.ForegroundColor = Constants.SelectedCellColour;
                     Console.Write(Constants.SelectedCell + " ");
                 }
                 else
                 {
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = Constants.DefaultColour;
                     Console.Write(Constants.DeselectedCell + " ");
                 }
                     

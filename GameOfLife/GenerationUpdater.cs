@@ -7,42 +7,55 @@ namespace GameOfLife
     {
         public GenerationInfo GetNextGeneration(Grid grid)
         {
-            List<Cell> currentLivingCells = GetLivingCells(grid);
-            
-            List<CellPosition> cellPositions = grid.Cells
-                .Where(cell => GetNumberOfRequiredNeighbours(cell).Contains(GetNumberOfLivingNeighbours(cell, currentLivingCells)))
-                .Select(cell => new CellPosition(cell.Position))
+            List<Cell> currentLivingCells = grid.Cells
+                .Where(cell => cell.IsAlive)
                 .ToList();
             
-            return new GenerationInfo(grid.Width, grid.Height, cellPositions);
-        }
-        
-        private List<Cell> GetLivingCells(Grid grid)
-        {
-            List<Cell> livingCells = grid.Cells.Where(cell => cell.IsAlive).ToList();
+            List<Cell> cellsToCheck = GetCellsToCheck(grid, currentLivingCells);
+
+            List<CellPosition> nextGenerationLivingCellPositions = cellsToCheck
+                .Where(cell => CheckIfCellLivesInNextGeneration(cell, currentLivingCells))
+                .Select(cell => cell.Position)
+                .ToList();
             
-            return livingCells;
+            return new GenerationInfo(grid.Width, grid.Height, nextGenerationLivingCellPositions);
         }
 
-        private int GetNumberOfLivingNeighbours(Cell cell, List<Cell> livingCells)
+        private List<Cell> GetCellsToCheck(Grid grid, List<Cell> livingCells)
         {
-            List<int> livingCellPositions = livingCells.Select(x => x.Position).ToList();
+            List<CellPosition> livingCellsPositions = livingCells.Select(cell => cell.Position).ToList();
+
+            List<CellPosition> neighboursOfLivingCells = new List<CellPosition>();
+            livingCells.ForEach(cell => neighboursOfLivingCells.AddRange(cell.Neighbours));
+            
+            List<CellPosition> cellsToCheck = new List<CellPosition>();
+            cellsToCheck.AddRange(livingCellsPositions);
+            cellsToCheck.AddRange(neighboursOfLivingCells);
+
+            List<int> cellsToCheckNumbers = cellsToCheck
+                .Select(cell => cell.Number)
+                .Distinct()
+                .ToList();
+
+            List<Cell> cells = grid.Cells.Where(cell => cellsToCheckNumbers.Contains(cell.Position.Number)).ToList();
+
+            return cells;
+        }
+
+        private bool CheckIfCellLivesInNextGeneration(Cell cell, List<Cell> currentLivingCells)
+        {
+            List<int> livingCellPositions = currentLivingCells.Select(x => x.Position.Number).ToList();
 
             int numberOfLivingNeighbours = cell.Neighbours.Count(cellPosition => livingCellPositions.Contains(cellPosition.Number));
-
-            return numberOfLivingNeighbours;
-        }
-
-        private List<int> GetNumberOfRequiredNeighbours(Cell cell)
-        {
+            
             List<int> requiredNumberOfNeighbours = new List<int>() {3};
 
             if (cell.IsAlive)
             {
                 requiredNumberOfNeighbours.Add(2);
             }
-
-            return requiredNumberOfNeighbours;
+            
+            return requiredNumberOfNeighbours.Contains(numberOfLivingNeighbours);
         }
     }
 }
