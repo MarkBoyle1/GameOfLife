@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 
-namespace GameOfLife
+namespace GameOfLife.SeedGenerator
 {
     public class PreLoadedSelection : ISeedGenerator
     {
-        private int _width;
-        private int _height;
-        private List<CellPosition> _livingCells;
+        private readonly int _width;
+        private readonly int _height;
+        private readonly List<CellPosition> _livingCells;
         
         public PreLoadedSelection(GenerationInfo savedSeed)
         {

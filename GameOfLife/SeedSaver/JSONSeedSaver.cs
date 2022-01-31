@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 
-namespace GameOfLife
+namespace GameOfLife.SeedSaver
 {
     public class JSONSeedSaver : ISeedSaver
     {
-        private string _filePath;
+        private readonly string _filePath;
 
         public JSONSeedSaver(string filePath)
         {

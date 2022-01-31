@@ -1,15 +1,16 @@
 
 using GameOfLife.Input;
+using GameOfLife.Output;
 
 namespace GameOfLife
 {
     public class Engine
     {
-        private IOutput _output;
-        private SeedManager _seedManager;
-        private GenerationUpdater _generationUpdater;
-        private GridBuilder _gridBuilder;
-        private GameManager _gameManager;
+        private readonly IOutput _output;
+        private readonly SeedManager _seedManager;
+        private readonly GenerationUpdater _generationUpdater;
+        private readonly GridBuilder _gridBuilder;
+        private readonly GameManager _gameManager;
         
         public Engine(IUserInput input, IOutput output)
         {

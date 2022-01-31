@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace GameOfLife
+namespace GameOfLife.Output
 {
     public class ConsoleOutput : IOutput
     {

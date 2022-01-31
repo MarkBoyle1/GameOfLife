@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using GameOfLife;
-using GameOfLife.Input;
+using GameOfLife.SeedSaver;
 using Xunit;
 
 namespace GameOfLifeTests

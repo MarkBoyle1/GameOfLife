@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace GameOfLife
+namespace GameOfLife.Output
 {
     public interface IOutput
     {

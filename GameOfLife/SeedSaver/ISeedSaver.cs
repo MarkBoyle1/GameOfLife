@@ -1,7 +1,7 @@
 
 using System.Collections.Generic;
 
-namespace GameOfLife
+namespace GameOfLife.SeedSaver
 {
     public interface ISeedSaver
     {

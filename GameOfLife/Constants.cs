@@ -24,8 +24,8 @@ namespace GameOfLife
         public const int StartingCellPositionForManualSelection = 1;
         public const int GenerationLimit = 100;
 
-        public static List<int> RequiredNumberOfLivingNeighboursForAliveCell = new List<int>() {3, 2}; 
-        public static List<int> RequiredNumberOfLivingNeighboursForDeadCell = new List<int>() {3}; 
+        public static readonly List<int> RequiredNumberOfLivingNeighboursForAliveCell = new List<int>() {3, 2}; 
+        public static readonly List<int> RequiredNumberOfLivingNeighboursForDeadCell = new List<int>() {3}; 
 
 
         //DisplaySymbols

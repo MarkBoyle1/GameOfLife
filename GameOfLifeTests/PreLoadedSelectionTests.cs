@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using GameOfLife;
+using GameOfLife.SeedGenerator;
 using Xunit;
 
 namespace GameOfLifeTests

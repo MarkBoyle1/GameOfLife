@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using GameOfLife.Exceptions;
 using GameOfLife.Input;
+using GameOfLife.Output;
 
-namespace GameOfLife
+namespace GameOfLife.SeedGenerator
 {
     public class ManualSelection : ISeedGenerator
     {
-        private IUserInput _input;
-        private IOutput _output;
+        private readonly IUserInput _input;
+        private readonly IOutput _output;
         public ManualSelection(IUserInput input, IOutput output)
         {
             _input = input;
