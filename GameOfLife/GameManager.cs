@@ -42,7 +42,6 @@ namespace GameOfLife
             if (CheckForNoChange(generation, _previousGenerations.Last()))
             {
                 _output.DisplayMessage(OutputMessages.GameEndedFromNoChange);
-                _previousGenerations.Add(generation);
                 return true;
             }
 

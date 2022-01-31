@@ -47,14 +47,11 @@ namespace GameOfLife
             List<int> livingCellPositions = currentLivingCells.Select(x => x.Position.Number).ToList();
 
             int numberOfLivingNeighbours = cell.Neighbours.Count(cellPosition => livingCellPositions.Contains(cellPosition.Number));
-            
-            List<int> requiredNumberOfNeighbours = new List<int>() {3};
 
-            if (cell.IsAlive)
-            {
-                requiredNumberOfNeighbours.Add(2);
-            }
-            
+            List<int> requiredNumberOfNeighbours = cell.IsAlive
+                ? Constants.RequiredNumberOfLivingNeighboursForAliveCell
+                : Constants.RequiredNumberOfLivingNeighboursForDeadCell;
+
             return requiredNumberOfNeighbours.Contains(numberOfLivingNeighbours);
         }
     }

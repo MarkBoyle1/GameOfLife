@@ -24,29 +24,13 @@ namespace GameOfLife
         
         public GenerationInfo GetSeedGeneration()
         {
-            try
-            {
-                _seedSaver = new JSONSeedSaver(_filePath);
-                _savedSeeds = _seedSaver.LoadSavedSeeds();
-            }
-            catch (FileNotFoundException)
-            {
-                _output.DisplayMessage(OutputMessages.NoExternalFileFound);
-                _savedSeeds = new List<GenerationInfo>();
-            }
-            catch (JsonException)
-            {
-                _output.DisplayMessage(OutputMessages.CannotReadFile);
-                _savedSeeds = new List<GenerationInfo>();
-            }
+            _savedSeeds = LoadSeeds();
             
             ISeedGenerator seedGenerator;
             
-            bool userWantsToLoadSavedSeed = _savedSeeds.Count > 0 
-                ? CheckIfUserWantsToUseASavedSeed() 
-                : false;
+            bool userWantsToLoadASeed = _savedSeeds.Count > 0 && CheckIfUserWantsToUseASavedSeed();
 
-            if (userWantsToLoadSavedSeed)
+            if (userWantsToLoadASeed)
             {
                 GenerationInfo savedSeed = ChooseSavedSeed(_savedSeeds);
                 seedGenerator = new PreLoadedSelection(savedSeed);
@@ -60,9 +44,26 @@ namespace GameOfLife
             int height = seedGenerator.GetGridHeight();
             List<CellPosition> livingCells = seedGenerator.GetPositionsOfLivingCells(width, height);
 
-            GenerationInfo seedGeneration = new GenerationInfo(width, height, livingCells);
+            return new GenerationInfo(width, height, livingCells);
+        }
 
-            return seedGeneration;
+        private List<GenerationInfo> LoadSeeds()
+        {
+            try
+            {
+                _seedSaver = new JSONSeedSaver(_filePath);
+                return _seedSaver.LoadSavedSeeds();
+            }
+            catch (FileNotFoundException)
+            {
+                _output.DisplayMessage(OutputMessages.NoExternalFileFound);
+                return new List<GenerationInfo>();
+            }
+            catch (JsonException)
+            {
+                _output.DisplayMessage(OutputMessages.CannotReadFile);
+                return new List<GenerationInfo>();
+            }
         }
 
         private bool CheckIfUserWantsToUseASavedSeed()
