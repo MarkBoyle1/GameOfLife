@@ -57,4 +57,4 @@ Select and deselect cells until the desired pattern is created. Press the key fo
 
 ## Class Diagram
 
-<img width="1650" alt="ClassDiagram" src="https://user-images.githubusercontent.com/88356611/151745740-0fcc106d-c54e-487c-b5f4-26985c02f71a.png">
+<img width="1625" alt="ClassDiagram" src="https://user-images.githubusercontent.com/88356611/151871237-c538eb76-7393-4cd9-9f7a-b313bd564f89.png">
