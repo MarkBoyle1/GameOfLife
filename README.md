@@ -1,10 +1,12 @@
 # Conway's Game Of Life
 
+The Game of Life, also known simply as Life, is a cellular automaton devised by the British mathematician John Horton Conway in 1970.
+
+The "game" is a zero-player game, meaning that its evolution is determined by its initial state, requiring no further input.
+
 A seed generation is created on a grid with a pattern of living cells.
 
 The next generation is created by applying a set of rules to the cells of the previous generation.
-
-Once the seed generation is set up the user is not required to provide anymore input.
 
 A sequence of generations will play out on the grid.
 
