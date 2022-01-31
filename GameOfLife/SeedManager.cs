@@ -4,14 +4,17 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using GameOfLife.Input;
+using GameOfLife.Output;
+using GameOfLife.SeedGenerator;
+using GameOfLife.SeedSaver;
 
 namespace GameOfLife
 {
     public class SeedManager
     {
-        private IUserInput _input;
-        private IOutput _output;
-        private string _filePath;
+        private readonly IUserInput _input;
+        private readonly IOutput _output;
+        private readonly string _filePath;
         private ISeedSaver _seedSaver;
         private List<GenerationInfo> _savedSeeds;
 

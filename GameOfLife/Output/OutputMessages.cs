@@ -1,4 +1,4 @@
-namespace GameOfLife
+namespace GameOfLife.Output
 {
     public class OutputMessages
     {

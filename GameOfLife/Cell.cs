@@ -4,7 +4,7 @@ namespace GameOfLife
 {
     public class Cell
     {
-        public CellPosition Position;
+        public CellPosition Position { get; }
         public bool IsAlive { get; }
         public List<CellPosition> Neighbours { get; }
 

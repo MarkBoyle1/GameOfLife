@@ -5,7 +5,7 @@ namespace GameOfLife.Input
 {
     public class TestInput : IUserInput
     {
-        private List<string> _listOfInputs;
+        private readonly List<string> _listOfInputs;
 
         public TestInput(List<string> listOfInputs)
         {

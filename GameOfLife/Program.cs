@@ -1,4 +1,5 @@
 ﻿using GameOfLife.Input;
+using GameOfLife.Output;
 
 namespace GameOfLife
 {
