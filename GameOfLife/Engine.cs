@@ -21,7 +21,7 @@ namespace GameOfLife
             _seedManager = new SeedManager(input, output);
         }
         
-        public void RunProgram()
+        public GenerationInfo RunProgram()
         {
             GenerationInfo nextGeneration;
             _output.DisplayMessage(OutputMessages.Welcome);
@@ -44,6 +44,8 @@ namespace GameOfLife
             {
                 _seedManager.SaveSeedIfRequested(seedGeneration);
             }
+
+            return nextGeneration;
         }
     }
 }

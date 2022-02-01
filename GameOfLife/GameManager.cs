@@ -22,6 +22,12 @@ namespace GameOfLife
         {
             _currentGenerationCount++;
 
+            if (_previousGenerations.Count == 0)
+            {
+                _previousGenerations.Add(generation);
+                return false;
+            }
+            
             if (_currentGenerationCount >= _generationLimit)
             {
                 _output.DisplayMessage(OutputMessages.GenerationLimitReached);
@@ -32,12 +38,6 @@ namespace GameOfLife
             {
                 _output.DisplayMessage(OutputMessages.NoMoreLivingCells);
                 return true;
-            }
-            
-            if (_previousGenerations.Count == 0)
-            {
-                _previousGenerations.Add(generation);
-                return false;
             }
             
             if (CheckForNoChange(generation, _previousGenerations.Last()))
@@ -73,19 +73,14 @@ namespace GameOfLife
 
         private bool CheckForInfiniteLoop(GenerationInfo currentGeneration, List<GenerationInfo> previousGenerations)
         {
-            List<int> currentGenerationLivingCells = ConvertCellPositionsIntoIntegers(currentGeneration.LivingCells);
-
             foreach (var previousGeneration in previousGenerations)
             {
-                List<int> previousGenerationLivingCells =
-                    ConvertCellPositionsIntoIntegers(previousGeneration.LivingCells);
-
-                if (currentGenerationLivingCells.All(previousGenerationLivingCells.Contains))
+                if (CheckForNoChange(currentGeneration, previousGeneration))
                 {
                     return true;
                 }
             }
-
+            
             return false;
         }
 
