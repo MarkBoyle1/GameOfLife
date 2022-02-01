@@ -22,7 +22,7 @@ namespace GameOfLifeTests
 
             List<GenerationInfo> seeds = seedSaver.LoadSavedSeeds();
 
-            Assert.Equal(3, seeds.Count);
+            Assert.Equal(5, seeds.Count);
         }
         
         [Fact]
@@ -39,22 +39,22 @@ namespace GameOfLifeTests
         public void given_JsonFileContainsThreeSeeds_and_ANewSeedIsAdded_when_SaveSeeds_then_JsonFileContainsFourSeeds()
         {
             ISeedSaver seedSaver = new JSONSeedSaver(_testFilePath);
-
+        
             List<GenerationInfo> originalSeeds = seedSaver.LoadSavedSeeds();
-            Assert.Equal(3, originalSeeds.Count);
-
+            Assert.Equal(5, originalSeeds.Count);
+        
             List<GenerationInfo> newSavedSeeds = new List<GenerationInfo>(originalSeeds) {};
-
+        
             GenerationInfo newSeed = new GenerationInfo(5, 5, new List<CellPosition>());
             newSeed.Name = "test";
             newSavedSeeds.Add(newSeed);
-
+        
             seedSaver.SaveSeeds(newSavedSeeds);
             
             List<GenerationInfo> testSeeds = seedSaver.LoadSavedSeeds();
             
-            Assert.Equal(4, testSeeds.Count);
-            Assert.Equal("test", testSeeds[3].Name);
+            Assert.Equal(6, testSeeds.Count);
+            Assert.Equal("test", testSeeds.Last().Name);
             
             seedSaver.SaveSeeds(originalSeeds);
         }

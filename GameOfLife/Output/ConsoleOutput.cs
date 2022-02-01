@@ -6,7 +6,7 @@ namespace GameOfLife.Output
 {
     public class ConsoleOutput : IOutput
     {
-        public void DisplayGrid(Grid grid)
+        public void DisplayGrid(Grid grid, int sleepPeriod = Constants.TimeBetweenGenerationsInMilliseconds)
         {
             Console.Clear();
             foreach (var cell in grid.Cells)
@@ -26,7 +26,7 @@ namespace GameOfLife.Output
                 }
             }
             
-            Thread.Sleep(Constants.TimeBetweenGenerationsInMilliseconds);
+            Thread.Sleep(sleepPeriod);
         }
 
         public void DisplaySelectionGrid(List<int> displayGrid, int activeCell, List<int> selectedCells, int width)
@@ -39,22 +39,22 @@ namespace GameOfLife.Output
                 if (cell == activeCell && selectedCells.Contains(cell))
                 {
                     Console.ForegroundColor = Constants.ActiveCellColour;
-                    Console.Write(Constants.SelectedActiveCell + " ");
+                    Console.Write(Constants.SelectedActiveCell);
                 }
                 else if (cell == activeCell)
                 {
                     Console.ForegroundColor = Constants.ActiveCellColour;
-                    Console.Write(Constants.DeselectedActiveCell + " ");
+                    Console.Write(Constants.DeselectedActiveCell);
                 }
                 else if (selectedCells.Contains(cell))
                 {
                     Console.ForegroundColor = Constants.SelectedCellColour;
-                    Console.Write(Constants.SelectedCell + " ");
+                    Console.Write(Constants.SelectedCell);
                 }
                 else
                 {
                     Console.ForegroundColor = Constants.DefaultColour;
-                    Console.Write(Constants.DeselectedCell + " ");
+                    Console.Write(Constants.DeselectedCell);
                 }
                     
                 if (cell % width == 0)

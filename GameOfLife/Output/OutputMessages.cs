@@ -33,5 +33,10 @@ namespace GameOfLife.Output
         {
             return "Invalid input. Please select a number greater than or equal to " + Constants.MinimumGridMeasurement;
         }
+
+        public static string DisplaySavedSeedOption(int number, string name)
+        {
+            return number + " - " + name;
+        }
     }
 }

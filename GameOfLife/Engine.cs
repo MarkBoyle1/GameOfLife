@@ -28,7 +28,7 @@ namespace GameOfLife
             
             GenerationInfo seedGeneration = _seedManager.GetSeedGeneration();
             Grid grid = _gridBuilder.CreateGrid(seedGeneration);
-            _output.DisplayGrid(grid);
+            _output.DisplayGrid(grid, Constants.TimeToDisplaySeedInMilliseconds);
             
             do
             {
@@ -40,9 +40,9 @@ namespace GameOfLife
 
             bool seedAlreadySaved = _seedManager.CheckIfSeedIsAlreadySaved(seedGeneration);
 
-            if (!seedAlreadySaved)
+            if (!seedAlreadySaved && _seedManager.CheckIfUserWantsToSaveTheSeed())
             {
-                _seedManager.SaveSeedIfRequested(seedGeneration);
+                _seedManager.SaveSeed(seedGeneration);
             }
 
             return nextGeneration;

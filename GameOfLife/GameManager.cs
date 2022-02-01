@@ -6,10 +6,10 @@ namespace GameOfLife
 {
     public class GameManager
     {
-        private List<GenerationInfo> _previousGenerations;
+        private readonly List<GenerationInfo> _previousGenerations;
         private int _currentGenerationCount;
-        private int _generationLimit;
-        private IOutput _output;
+        private readonly int _generationLimit;
+        private readonly IOutput _output;
 
         public GameManager(IOutput output, int generationLimit = Constants.GenerationLimit)
         {
@@ -22,6 +22,12 @@ namespace GameOfLife
         {
             _currentGenerationCount++;
 
+            if (generation.LivingCells.Count == 0)
+            {
+                _output.DisplayMessage(OutputMessages.NoMoreLivingCells);
+                return true;
+            }
+            
             if (_previousGenerations.Count == 0)
             {
                 _previousGenerations.Add(generation);
@@ -33,13 +39,7 @@ namespace GameOfLife
                 _output.DisplayMessage(OutputMessages.GenerationLimitReached);
                 return true;
             }
-            
-            if (generation.LivingCells.Count == 0)
-            {
-                _output.DisplayMessage(OutputMessages.NoMoreLivingCells);
-                return true;
-            }
-            
+
             if (CheckForNoChange(generation, _previousGenerations.Last()))
             {
                 _output.DisplayMessage(OutputMessages.GameEndedFromNoChange);
@@ -68,7 +68,8 @@ namespace GameOfLife
             List<int> currentGenerationLivingCells = ConvertCellPositionsIntoIntegers(currentGeneration.LivingCells);
             List<int> previousGenerationLivingCells = ConvertCellPositionsIntoIntegers(previousGeneration.LivingCells);
             
-            return currentGenerationLivingCells.All(previousGenerationLivingCells.Contains);
+            return currentGenerationLivingCells.All(previousGenerationLivingCells.Contains) 
+                   && currentGenerationLivingCells.Count == previousGenerationLivingCells.Count;        //Checks if the two lists are exactly the same.
         }
 
         private bool CheckForInfiniteLoop(GenerationInfo currentGeneration, List<GenerationInfo> previousGenerations)
