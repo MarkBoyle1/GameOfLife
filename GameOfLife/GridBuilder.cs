@@ -42,6 +42,7 @@ namespace GameOfLife
             int topRight = position.Number - width + 1;
             int topLeft = position.Number - width - 1;
             
+            //Wrapping around grid if required
             //rightSide
             if (position.Number % width == 0)
             {
